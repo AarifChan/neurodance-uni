@@ -26,7 +26,7 @@
   transform: translate(-50%, -50%);
   background: linear-gradient(174deg, #bccef5 5.58%, #fff 94.06%); // 可换成 linear-gradient
   opacity: 0.7;
-  animation: ripple 2s infinite ease-out;
+  animation: ripple 2.2s infinite ease-out;
 }
 
 @keyframes ripple {
