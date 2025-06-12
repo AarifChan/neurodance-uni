@@ -1,50 +1,100 @@
 <route lang="json5">
 {
   style: {
-    navigationBarTitleText: '个人资料',
+    navigationBarTitleText: '',
+    navigationStyle: 'custom',
   },
 }
 </route>
 
 <template>
-  <view class="profile-info-container">
-    <view class="profile-card">
-      <view class="form-wrapper">
-        <wd-form ref="formRef" :model="formData" label-width="160rpx" class="profile-form">
-          <wd-cell-group class="form-group">
+  <view class="page">
+    <fg-navbar />
+    <view class="profile-info-container">
+      <form ref="formRef">
+        <view class="form-wrapper">
+          <view class="avatar-field">
+            <image class="avatar-img" :src="formData.pic" />
+            <image class="avatar-change" src="/static/images/change-avatar.png" />
+          </view>
+          <view class="form-group">
             <!-- 昵称 -->
-            <view class="sex-field">
+            <view class="form-row">
               <text class="field-label">昵称</text>
-              <wd-input
+              <input
                 prop="name"
                 clearable
                 v-model="formData.name"
+                :no-border="true"
                 placeholder="请输入昵称"
                 :rules="[{ required: true, message: '请填写昵称' }]"
                 class="form-input"
               />
             </view>
+            <view class="form-row">
+              <text class="field-label">账号</text>
+              <text class="field-value">{{ formData.mobile }}</text>
+            </view>
 
             <!-- 性别 -->
-            <view class="sex-field">
+            <view class="form-row">
               <text class="field-label">性别</text>
-              <wd-radio-group
-                v-model="formData.sex"
-                shape="button"
-                :rules="[{ required: true, message: '请选择性别' }]"
-              >
-                <wd-radio :value="'1'">男</wd-radio>
-                <wd-radio :value="'0'">女</wd-radio>
-              </wd-radio-group>
+              <view class="sex-field">
+                <view
+                  class="sex-item"
+                  :class="Number(formData.sex) === 0 ? 'active' : ''"
+                  @tap.stop="formData.sex = 0"
+                >
+                  女
+                </view>
+                <view
+                  class="sex-item"
+                  :class="Number(formData.sex) === 1 ? 'active' : ''"
+                  @tap.stop="formData.sex = 1"
+                >
+                  男
+                </view>
+              </view>
             </view>
-          </wd-cell-group>
-        </wd-form>
-
-        <!-- 操作按钮 -->
-        <view class="form-actions">
-          <wd-button type="primary" size="large" @click="handleSubmit">保存修改</wd-button>
+            <view class="form-row">
+              <text class="field-label">生日</text>
+              <view class="birth-field">
+                <view class="birth-item">
+                  <text>1990</text>
+                  <text class="birth-unit">年</text>
+                </view>
+                <view class="birth-item">
+                  <text>3</text>
+                  <text class="birth-unit">月</text>
+                </view>
+                <view class="birth-item">
+                  <text>3</text>
+                  <text class="birth-unit">日</text>
+                </view>
+              </view>
+            </view>
+            <view class="form-row">
+              <text class="field-label">地区</text>
+              <view class="location-field">
+                <text class="field-value">{{ formData.area }}</text>
+                <image src="/static/images/location.png" />
+              </view>
+            </view>
+            <view class="form-row">
+              <text class="field-label">软件版本</text>
+              <text class="field-value">{{ getAppVersion }}</text>
+            </view>
+          </view>
+          <!-- 操作按钮 -->
+          <view class="form-actions">
+            <view class="save-button" @click="handleLogout">退出登录</view>
+            <view class="sys-btn">
+              <image src="/static/images/question.png" />
+              <text>系统问题</text>
+            </view>
+          </view>
         </view>
-      </view>
+      </form>
     </view>
   </view>
 </template>
@@ -55,9 +105,11 @@ import { useUserStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { toast } from '@/utils/toast'
 import { updateInfo } from '@/api/login'
-
+import { getAppVersion } from '@/utils'
+import { uploadFileUrl, useUpload } from '@/utils/uploadFile'
+import { IUploadSuccessInfo } from '@/api/login.typings'
 // 表单引用
-const formRef = ref()
+const formRef = ref(null)
 
 // 用户信息
 const userStore = useUserStore()
@@ -65,94 +117,169 @@ const { userInfo } = storeToRefs(userStore)
 
 // 表单数据
 const formData = ref({
-  id: userInfo.value.id,
+  pic: userInfo.value.pic,
   name: userInfo.value.name,
+  mobile: userInfo.value.phone,
   sex: userInfo.value.sex,
+  area: userInfo.value.area,
 })
 
-// 提交表单
-const handleSubmit = async () => {
-  // 表单验证
-  const valid = await formRef.value.validate()
-  if (!valid) return
-  const { message } = await updateInfo(formData.value)
-  await useUserStore().getUserInfo()
-  toast.success(message)
+// #ifndef MP-WEIXIN
+// 上传头像
+const { run } = useUpload<IUploadSuccessInfo>(
+  uploadFileUrl.USER_AVATAR,
+  {},
+  {
+    onSuccess: (res) => useUserStore().getUserInfo(),
+  },
+)
+// #endif
+
+// #ifdef MP-WEIXIN
+
+// 微信小程序下选择头像事件
+const onChooseAvatar = (e: any) => {
+  console.log('选择头像', e.detail)
+  const { avatarUrl } = e.detail
+  const { run } = useUpload<IUploadSuccessInfo>(
+    uploadFileUrl.USER_AVATAR,
+    {},
+    {
+      onSuccess: (res) => useUserStore().getUserInfo(),
+    },
+    avatarUrl,
+  )
+  run()
+}
+// #endif
+const handleLogout = () => {
+  userStore.logout()
 }
 </script>
 
 <style lang="scss" scoped>
 .profile-info-container {
-  min-height: 100vh;
-  background-color: #f5f7fa;
-  padding: 30rpx;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 32rpx 70rpx;
+  box-sizing: border-box;
+}
+.form-row {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx 0;
+  border-bottom: 1rpx solid #c9cdd4;
+}
+.form-row:last-child {
+  border-bottom: none;
 }
 
 .profile-card {
-  background-color: #ffffff;
-  border-radius: 24rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  width: 100%;
+
   overflow: hidden;
 }
 
-.card-header {
-  padding: 40rpx 30rpx 20rpx;
-  border-bottom: 2rpx solid #f0f0f0;
-}
-
-.card-title {
-  font-size: 36rpx;
-  font-weight: 600;
-  color: #333;
+.avatar-field {
   position: relative;
-  display: inline-block;
-  padding-bottom: 16rpx;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60rpx;
-    height: 6rpx;
-    background: linear-gradient(90deg, #4a7bff, #6a5acd);
-    border-radius: 6rpx;
-  }
+  width: 164rpx;
+  height: 164rpx;
 }
-
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  background-color: #3b76f2;
+  border-radius: 50%;
+}
+.avatar-change {
+  position: absolute;
+  bottom: -8rpx;
+  right: 28rpx;
+  width: 38rpx;
+  height: 38rpx;
+}
 .form-wrapper {
   padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-group {
-  border-radius: 16rpx;
-  overflow: hidden;
+  position: relative;
+  width: 100%;
   margin-bottom: 40rpx;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-input {
   font-size: 30rpx;
+  text-align: right;
 }
 
 .sex-field {
   display: flex;
   align-items: center;
-  padding: 24rpx 30rpx;
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  gap: 16rpx;
+}
+.sex-item {
+  width: 84rpx;
+  height: 56rpx;
+  border-radius: 12rpx;
+  line-height: 56rpx;
+  font-size: 24rpx;
+  color: #4e5969;
+  border: 1rpx solid #c9cdd4;
+  text-align: center;
 }
 
 .field-label {
   width: 160rpx;
-  font-size: 30rpx;
-  color: #333;
+  font-size: 28rpx;
+  color: #000;
+  text-align: left;
 }
 
+.birth-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16rpx;
+}
+.birth-item {
+  background-color: #a7c1fa;
+  color: #4e5969;
+  padding: 8rpx 16rpx;
+  border: 1rpx solid #c9cdd4;
+  font-size: 28rpx;
+  line-height: 32rpx;
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4rpx;
+}
 .radio-group {
   flex: 1;
   display: flex;
   gap: 20rpx;
 }
 
+.field-value {
+  color: #4e5969;
+  font-size: 28rpx;
+  text-align: right;
+  font-weight: 380;
+}
 .radio-btn {
   flex: 1;
   height: 80rpx;
@@ -168,23 +295,55 @@ const handleSubmit = async () => {
 }
 
 .form-actions {
+  margin-top: 200rpx;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+.birth-unit {
+  font-size: 20rpx;
+  color: #86909c;
+}
+.save-button {
+  width: 324rpx;
+  height: 90rpx;
+  background-color: #a7c1fa;
+  line-height: 90rpx;
+  border-radius: 24rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-style: normal;
+  color: #4e5969;
+  font-weight: 520;
+}
+.sys-btn {
+  margin-top: 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+  image {
+    width: 60rpx;
+    height: 60rpx;
+  }
+  text {
+    color: #86909c;
+    font-size: 10px;
+  }
+}
+.location-field {
   display: flex;
   flex-direction: row;
-  gap: 20rpx;
+  align-items: center;
+  gap: 16rpx;
+  image {
+    width: 36rpx;
+    height: 36rpx;
+  }
 }
 
-.submit-btn {
-  height: 90rpx;
-  border-radius: 45rpx;
-  font-size: 32rpx;
-  font-weight: 500;
-  background: linear-gradient(135deg, #4a7bff, #6a5acd);
-  box-shadow: 0 8rpx 16rpx rgba(74, 123, 255, 0.2);
-  transition: all 0.3s ease;
-
-  &:active {
-    transform: translateY(2rpx);
-    box-shadow: 0 4rpx 8rpx rgba(74, 123, 255, 0.15);
-  }
+.active {
+  background-color: #a7c1fa;
 }
 </style>

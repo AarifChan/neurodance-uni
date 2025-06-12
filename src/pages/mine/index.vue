@@ -3,98 +3,104 @@
   layout: 'tabbar',
   style: {
     navigationBarTitleText: '',
+    disableScroll: true,
   },
 }
 </route>
 
 <template>
-  <view class="profile-container">
-    <!-- 用户信息区域 -->
-    <view class="user-info-section">
-      <view class="side">
-        <view class="avatar-wrapper" @click="run">M</view>
-        <view class="username">{{ userStore.userInfo.username }}</view>
-      </view>
-      <view class="side logout">
-        <view class="logout-title">退出登录</view>
-        <image class="logout-icon" src="/static/images/logout.png" />
-      </view>
-    </view>
-    <view class="section-group">
-      <view class="sleep-info">
-        <view class="sleep-info-title">睡眠总时长</view>
-        <view class="sleep-info-right">
-          <view class="sleep-info-right-value">36</view>
-          <view class="sleep-info-right-unit">小时</view>
-          <view class="sleep-info-right-value">46</view>
-          <view class="sleep-info-right-unit">分钟</view>
+  <scroll-view class="profile" :scroll-y="true" :enable-flex="true">
+    <view class="profile-container">
+      <!-- 用户信息区域 -->
+      <view class="user-info-section">
+        <view class="side">
+          <image class="avatar-wrapper" @click="handleProfileInfo" :src="userStore.userInfo.pic" />
+          <view class="username theme-font">{{ userStore.userInfo.name }}</view>
+        </view>
+        <view class="side logout" @click.stop="handleLogout">
+          <view class="logout-title">退出登录</view>
+          <image class="logout-icon" src="/static/images/logout.png" />
         </view>
       </view>
-    </view>
+      <view class="section-group">
+        <view class="sleep-info">
+          <view class="sleep-info-title">睡眠总时长</view>
+          <view class="sleep-info-right">
+            <view class="sleep-info-right-value">36</view>
+            <view class="sleep-info-right-unit">小时</view>
+            <view class="sleep-info-right-value">46</view>
+            <view class="sleep-info-right-unit">分钟</view>
+          </view>
+        </view>
+      </view>
 
-    <view class="section-group">
-      <view class="mine-device">
-        <view class="mine-device-title">我的设备</view>
-        <view class="mine-device-device">
-          <view class="mine-device-device-name">HoST-R2</view>
-          <image class="mine-device-device-icon" src="/static/images/right-arrow.png" />
+      <view class="section-group">
+        <view class="mine-device">
+          <view class="mine-device-title">我的设备</view>
+          <view class="mine-device-device">
+            <view class="mine-device-device-name">HoST-R2</view>
+            <image class="mine-device-device-icon" src="/static/images/right-arrow.png" />
+          </view>
+          <view class="mine-device-subTitle">上次链接时间:2024-10-30-16:32:28</view>
         </view>
-        <view class="mine-device-subTitle">上次链接时间:2024-10-30-16:32:28</view>
+        <image class="device-card" src="/static/images/device-card.png" />
       </view>
-      <image class="device-card" src="/static/images/device-card.png" />
+      <view class="section-group">
+        <view class="session-top">
+          <view class="session-top-title">个人信息</view>
+          <view class="session-top-value">
+            <view class="session-top-value-title">编辑资料</view>
+            <image class="session-top-value-icon" src="/static/images/right-arrow-gray.png" />
+          </view>
+        </view>
+        <view class="session-row">
+          <view class="session-row-title">绑定账号</view>
+          <view class="session-row-right">
+            <image class="common-icon" src="/static/images/wechat.png" />
+          </view>
+        </view>
+        <view class="session-row">
+          <view class="session-row-title">个人数据</view>
+          <view class="session-row-right">
+            <view class="session-row-right-title">性别,出生年月</view>
+          </view>
+        </view>
+        <view class="session-row none-border">
+          <view class="session-row-title">用户协议</view>
+          <view class="session-row-right">
+            <view class="session-row-right-title">了解更多</view>
+            <image class="session-row-right-icon" src="/static/images/right-arrow-gray.png" />
+          </view>
+        </view>
+      </view>
+      <view class="section-group">
+        <view class="session-top">
+          <view class="session-top-title">了解我们</view>
+          <view class="session-top-value">
+            <view class="session-top-value-title">进入官网</view>
+            <image class="session-top-value-icon" src="/static/images/right-arrow-gray.png" />
+          </view>
+        </view>
+        <image class="logo-card" src="/static/images/logo.png" />
+      </view>
     </view>
-    <view class="section-group">
-      <view class="session-top">
-        <view class="session-top-title">个人信息</view>
-        <view class="session-top-value">
-          <view class="session-top-value-title">编辑资料</view>
-          <image class="session-top-value-icon" src="/static/images/right-arrow-gray.png" />
-        </view>
-      </view>
-      <view class="session-row">
-        <view class="session-row-title">绑定账号</view>
-        <view class="session-row-right">
-          <image class="common-icon" src="/static/images/wechat.png" />
-        </view>
-      </view>
-      <view class="session-row">
-        <view class="session-row-title">个人数据</view>
-        <view class="session-row-right">
-          <view class="session-row-right-title">性别,出生年月</view>
-        </view>
-      </view>
-      <view class="session-row none-border">
-        <view class="session-row-title">用户协议</view>
-        <view class="session-row-right">
-          <view class="session-row-right-title">了解更多</view>
-          <image class="session-row-right-icon" src="/static/images/right-arrow-gray.png" />
-        </view>
-      </view>
-    </view>
-    <view class="section-group">
-      <view class="session-top">
-        <view class="session-top-title">了解我们</view>
-        <view class="session-top-value">
-          <view class="session-top-value-title">进入官网</view>
-          <image class="session-top-value-icon" src="/static/images/right-arrow-gray.png" />
-        </view>
-      </view>
-      <image class="logo-card" src="/static/images/logo.png" />
-    </view>
-  </view>
+  </scroll-view>
 </template>
 
 <script lang="ts" setup>
 import { useUserStore } from '@/store'
 import { useToast } from 'wot-design-uni'
-import { uploadFileUrl, useUpload } from '@/utils/uploadFile'
-import { storeToRefs } from 'pinia'
-import { IUploadSuccessInfo } from '@/api/login.typings'
 
 const userStore = useUserStore()
 
 const toast = useToast()
 const hasLogin = ref(false)
+
+const handleLogout = () => {
+  uni.navigateTo({
+    url: '/pages/login/index',
+  })
+}
 
 onShow((options) => {
   hasLogin.value = !!uni.getStorageSync('token')
@@ -102,21 +108,10 @@ onShow((options) => {
 
   hasLogin.value && useUserStore().getUserInfo()
 })
-// #ifndef MP-WEIXIN
-// 上传头像
-const { run } = useUpload<IUploadSuccessInfo>(
-  uploadFileUrl.USER_AVATAR,
-  {},
-  {
-    onSuccess: (res) => useUserStore().getUserInfo(),
-  },
-)
-// #endif
 
 // 微信小程序下登录
 const handleLogin = async () => {
   // #ifdef MP-WEIXIN
-
   // 微信登录
   await userStore.wxLogin()
   hasLogin.value = true
@@ -126,23 +121,6 @@ const handleLogin = async () => {
   // #endif
 }
 
-// #ifdef MP-WEIXIN
-
-// 微信小程序下选择头像事件
-const onChooseAvatar = (e: any) => {
-  console.log('选择头像', e.detail)
-  const { avatarUrl } = e.detail
-  const { run } = useUpload<IUploadSuccessInfo>(
-    uploadFileUrl.USER_AVATAR,
-    {},
-    {
-      onSuccess: (res) => useUserStore().getUserInfo(),
-    },
-    avatarUrl,
-  )
-  run()
-}
-// #endif
 // #ifdef MP-WEIXIN
 // 微信小程序下设置用户名
 const getUserInfo = (e: any) => {
@@ -225,45 +203,24 @@ const handleClearCache = () => {
     },
   })
 }
-// 退出登录
-const handleLogout = () => {
-  uni.showModal({
-    title: '提示',
-    content: '确定要退出登录吗？',
-    success: (res) => {
-      if (res.confirm) {
-        // 清空用户信息
-        useUserStore().logout()
-        hasLogin.value = false
-        // 执行退出登录逻辑
-        toast.success('退出登录成功')
-        // #ifdef MP-WEIXIN
-        // 微信小程序，去首页
-        // uni.reLaunch({ url: '/pages/index/index' })
-        // #endif
-        // #ifndef MP-WEIXIN
-        // 非微信小程序，去登录页
-        // uni.reLaunch({ url: '/pages/login/index' })
-        // #endif
-      }
-    },
-  })
-}
 </script>
 
 <style lang="scss" scoped>
 /* 基础样式 */
+.profile {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
 .profile-container {
   overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   background-color: $primary-bg;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: calc(100vh - 84px - env(safe-area-inset-bottom));
   padding: 32rpx;
   box-sizing: border-box;
   gap: 18px;
+  padding-bottom: calc(128rpx + env(safe-area-inset-bottom) + 32rpx);
 }
 /* 用户信息区域 */
 .user-info-section {

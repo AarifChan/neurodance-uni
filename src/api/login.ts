@@ -5,18 +5,17 @@ import { http } from '@/utils/http'
  * 登录表单
  */
 export interface ILoginForm {
-  username: string
-  password: string
-  code: string
-  uuid: string
+  userName: string
+  operationId: string
+  verificationCode: string
 }
 
 /**
  * 获取验证码
  * @returns ICaptcha 验证码
  */
-export const getCode = () => {
-  return http.get<ICaptcha>('/user/getCode')
+export const getCode = (mobile: string) => {
+  return http.post<ICaptcha>('/Api/Account/SendSMSCodeToMobile', { UserName: mobile })
 }
 
 /**
@@ -24,14 +23,14 @@ export const getCode = () => {
  * @param loginForm 登录表单
  */
 export const login = (loginForm: ILoginForm) => {
-  return http.post<IUserLogin>('/user/login', loginForm)
+  return http.post<IUserLogin>('/Api/Account/LoginRegisterSMSConfirm', loginForm)
 }
 
 /**
  * 获取用户信息
  */
 export const getUserInfo = () => {
-  return http.get<IUserInfoVo>('/user/info')
+  return http.get<IUserInfoVo>('/Api/Account/detail')
 }
 
 /**
@@ -45,7 +44,7 @@ export const logout = () => {
  * 修改用户信息
  */
 export const updateInfo = (data: IUpdateInfo) => {
-  return http.post('/user/updateInfo', data)
+  return http.post('/Api/Account/edit', data)
 }
 
 /**

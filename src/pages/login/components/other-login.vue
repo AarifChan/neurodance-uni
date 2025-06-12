@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+const emits = defineEmits(['wechatLogin'])
+</script>
+
 <template>
   <view class="other-login">
     <view class="other-login-top">
@@ -5,14 +9,10 @@
       <view class="other-login-title">其他登录方式</view>
       <view class="line" />
     </view>
-    <image class="wechat" src="/static/images/wechat.png" />
+    <image class="wechat" src="/static/images/wechat.png" @click.stop="emits('wechatLogin')" />
     <view class="title">微信一键登录</view>
   </view>
 </template>
-
-<script lang="ts" setup>
-//
-</script>
 
 <style lang="scss" scoped>
 .other-login {

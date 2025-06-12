@@ -141,6 +141,7 @@ export const getNeedLoginPages = (): string[] => getAllPages('needLogin').map((p
  */
 export const needLoginPages: string[] = getAllPages('needLogin').map((page) => page.path)
 
+export const getAppVersion = import.meta.env.VITE_APP_VERSION
 /**
  * 根据微信小程序当前环境，判断应该获取的 baseUrl
  */

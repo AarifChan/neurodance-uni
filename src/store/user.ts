@@ -13,9 +13,8 @@ import { IUserInfoVo } from '@/api/login.typings'
 // 初始化状态
 const userInfoState: IUserInfoVo = {
   id: 0,
-  username: '用户昵称',
-  avatar: '/static/images/default-avatar.png',
-  token: '',
+  name: '未登录',
+  pic: '',
 }
 
 export const useUserStore = defineStore(
@@ -23,15 +22,17 @@ export const useUserStore = defineStore(
   () => {
     // 定义用户信息
     const userInfo = ref<IUserInfoVo>({ ...userInfoState })
+
+    const accessToken = ref<string | undefined>(uni.getStorageSync('token'))
+
+    const setToken = (token: string) => {
+      accessToken.value = token
+      uni.setStorageSync('token', token)
+    }
+
     // 设置用户信息
     const setUserInfo = (val: IUserInfoVo) => {
       console.log('设置用户信息', val)
-      // 若头像为空 则使用默认头像
-      if (!val.avatar) {
-        val.avatar = userInfoState.avatar
-      } else {
-        val.avatar = 'https://oss.laf.run/ukw0y1-site/avatar.jpg?feige'
-      }
       userInfo.value = val
     }
     // 删除用户信息
@@ -46,15 +47,16 @@ export const useUserStore = defineStore(
      * @returns R<IUserLogin>
      */
     const login = async (credentials: {
-      username: string
-      password: string
-      code: string
-      uuid: string
+      userName: string
+      operationId: string
+      verificationCode: string
     }) => {
       const res = await _login(credentials)
       console.log('登录信息', res)
       toast.success('登录成功')
-      getUserInfo()
+      console.log('login res:', res.data.accessToken)
+      setToken(res.data.accessToken)
+      // getUserInfo()
       return res
     }
     /**
@@ -65,7 +67,7 @@ export const useUserStore = defineStore(
       const userInfo = res.data
       setUserInfo(userInfo)
       uni.setStorageSync('userInfo', userInfo)
-      uni.setStorageSync('token', userInfo.token)
+
       // TODO 这里可以增加获取用户路由的方法 根据用户的角色动态生成路由
       return res
     }
@@ -73,8 +75,10 @@ export const useUserStore = defineStore(
      * 退出登录 并 删除用户信息
      */
     const logout = async () => {
-      _logout()
       removeUserInfo()
+      uni.reLaunch({
+        url: '/pages/index/index',
+      })
     }
     /**
      * 微信登录
@@ -90,6 +94,7 @@ export const useUserStore = defineStore(
     }
 
     return {
+      accessToken,
       userInfo,
       login,
       wxLogin,

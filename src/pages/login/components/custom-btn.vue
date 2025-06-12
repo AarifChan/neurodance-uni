@@ -1,9 +1,3 @@
-<template>
-  <view class="custom-btn" :class="type === 'primary' ? 'main-bg-color {' : 'other-bg-color '">
-    {{ title }}
-  </view>
-</template>
-
 <script lang="ts" setup>
 //
 
@@ -18,6 +12,12 @@ defineProps({
   },
 })
 </script>
+
+<template>
+  <view class="custom-btn" :class="type === 'primary' ? 'main-bg-color' : 'other-bg-color'">
+    {{ title }}
+  </view>
+</template>
 
 <style lang="scss" scoped>
 .custom-btn {

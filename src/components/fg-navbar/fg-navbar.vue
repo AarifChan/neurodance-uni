@@ -13,10 +13,10 @@ withDefaults(
     rightDisabled?: boolean
   }>(),
   {
-    leftText: '返回',
+    leftText: '',
     rightText: '',
     leftArrow: true,
-    bordered: true,
+    bordered: false,
     fixed: false,
     placeholder: true,
     zIndex: 1,
@@ -51,8 +51,20 @@ function handleClickLeft() {
     :right-disabled="rightDisabled"
     @click-left="handleClickLeft"
   >
+    <template #left>
+      <image class="back-arrow" src="/static/svg/back-arrow.svg" mode="scaleToFill" />
+    </template>
+
     <template #title>
       <slot />
     </template>
   </wd-navbar>
 </template>
+<style lang="scss" scoped>
+.back-arrow {
+  margin-left: 16rpx;
+  width: 20px;
+  height: 20px;
+  color: black;
+}
+</style>

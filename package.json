@@ -4,21 +4,7 @@
   "version": "2.11.0",
   "description": "unibest - 最好的 uniapp 开发模板",
   "update-time": "2025-05-28",
-  "author": {
-    "name": "feige996",
-    "zhName": "菲鸽",
-    "email": "1020103647@qq.com",
-    "github": "https://github.com/feige996",
-    "gitee": "https://gitee.com/feige996"
-  },
   "license": "MIT",
-  "repository": "https://github.com/feige996/unibest",
-  "repository-gitee": "https://gitee.com/feige996/unibest",
-  "repository-deprecated": "https://github.com/codercup/unibest",
-  "bugs": {
-    "url": "https://github.com/feige996/unibest/issues"
-  },
-  "homepage": "https://feige996.github.io/unibest/",
   "engines": {
     "node": ">=18",
     "pnpm": ">=7.30"
@@ -102,13 +88,16 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-4060620250520001",
     "@dcloudio/uni-mp-xhs": "3.0.0-4060620250520001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4060620250520001",
+    "@dcloudio/uni-ui": "^1.5.7",
     "@tanstack/vue-query": "^5.62.16",
     "abortcontroller-polyfill": "^1.7.8",
     "dayjs": "1.11.10",
+    "echarts": "^5.6.0",
     "js-cookie": "^3.0.5",
     "pinia": "2.0.36",
     "pinia-plugin-persistedstate": "3.2.1",
     "qs": "6.5.3",
+    "uuid": "^11.1.0",
     "vue": "^3.5.15",
     "wot-design-uni": "^1.9.1",
     "z-paging": "^2.8.4"

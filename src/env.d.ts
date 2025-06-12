@@ -24,6 +24,7 @@ interface ImportMetaEnv {
   /** 是否清除console */
   readonly VITE_DELETE_CONSOLE: string
   // 更多环境变量...
+  readonly VITE_APP_VERSION: string
 }
 
 interface ImportMeta {

@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
+import { tabBarList } from '@/utils/index'
 import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'
+import { useUserStore } from './store'
 
 onLaunch(() => {
   console.log('App Launch')
+  setTimeout(() => {
+    uni.hideTabBar()
+  }, 20)
+  useUserStore().getUserInfo()
 })
 onShow(() => {
   console.log('App Show')
@@ -14,6 +20,10 @@ onHide(() => {
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: 'MiSans';
+  src: url('./static/fonts/MiSans-Normal.ttf');
+}
 button::after {
   border: none;
 }

@@ -19,7 +19,7 @@
         <view class="input-wrapper">
           <view class="prefix-title">+86</view>
           <input
-            v-model="loginForm.username"
+            v-model="moible"
             placeholder="请输入手机号"
             placeholder-class="placeholder"
             class="login-input"
@@ -32,13 +32,13 @@
       <!-- 登录按钮组 -->
       <view class="login-buttons">
         <!-- 账号密码登录按钮 -->
-        <customBtn title="获取验证码" type="primary" />
+        <customBtn title="获取验证码" type="primary" @click.stop="handleFetchSmsCode" />
       </view>
       <view class="login-tab" @click.stop="handleOtherLogin">本机号码一键登录</view>
     </view>
 
     <!-- 隐私协议勾选 -->
-    <PrivacyAgreement />
+    <PrivacyAgreement v-model:agree-privacy="agreePrivacy" />
 
     <OtherLogin />
   </view>
@@ -56,25 +56,12 @@ import customBtn from '../components/custom-btn.vue'
 import OtherLogin from '../components/other-login.vue'
 const redirectRoute = ref('')
 
-// 获取环境变量
-const appTitle = ref(import.meta.env.VITE_APP_TITLE || 'Unibest Login')
-
 // 初始化store
 const userStore = useUserStore()
 // 路由位置
-// 验证码图片
-const captcha = ref<ICaptcha>({
-  captchaEnabled: false,
-  uuid: '',
-  image: '',
-})
+
 // 登录表单数据
-const loginForm = ref<ILoginForm>({
-  username: '',
-  password: '123456',
-  code: '',
-  uuid: '',
-})
+const moible = ref('')
 // 隐私协议勾选状态
 const agreePrivacy = ref(false)
 
@@ -87,6 +74,19 @@ onLoad((option) => {
     redirectRoute.value = option.redirect
   }
 })
+const handleFetchSmsCode = () => {
+  if (moible.value.length === 0) {
+    toast.info('请输入手机号')
+    return
+  }
+  if (moible.value.length !== 11) {
+    toast.info('请输入正确的手机号')
+    return
+  }
+  uni.navigateTo({
+    url: `/pages/login/verification/index?mobile=${moible.value}`,
+  })
+}
 
 const handleOtherLogin = () => {
   uni.redirectTo({
@@ -97,14 +97,13 @@ const handleOtherLogin = () => {
 
 <style lang="scss" scoped>
 .login-container {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding: 0 70rpx;
   background-color: #ffffff;
-
-  position: relative;
   overflow: hidden;
 }
 
@@ -147,7 +146,7 @@ const handleOtherLogin = () => {
   .login-input-group {
     position: relative;
     z-index: 1;
-
+    width: 600rpx;
     .input-wrapper {
       position: relative;
       display: flex;
@@ -251,27 +250,6 @@ const handleOtherLogin = () => {
         transform: scale(0.98);
       }
     }
-  }
-}
-
-/* 添加动画效果 */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 </style>

@@ -79,3 +79,34 @@ $uni-font-size-paragraph: 15px;
 $primary-bg: #f1f1f1;
 
 $primary-blue: #3b76f2;
+
+.theme-font {
+  font-family: 'MiSans';
+}
+
+/* 应用到全局 */
+page,
+.uni-app {
+  font-family: 'MiSans';
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 添加动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -3,8 +3,14 @@
     <block v-for="(item, index) in tabBarList" :key="item.path">
       <view class="custom-tabBar-item" @tap.stop="selectTabBar(index)">
         <image
+          v-show="tabbarStore.curIdx === index"
           class="custom-tabBar-item-icon"
-          :src="tabbarStore.curIdx === index ? item.selectIcon : item.normalIcon"
+          :src="item.selectIcon"
+        />
+        <image
+          v-show="tabbarStore.curIdx !== index"
+          class="custom-tabBar-item-icon"
+          :src="item.normalIcon"
         />
         <view class="custom-tabBar-item-title">{{ item.text }}</view>
       </view>
@@ -17,7 +23,6 @@
 // i-carbon-code
 import { tabBarList as _tabBarList } from '@/utils/index'
 import { tabbarStore } from './tabbar'
-
 /** tabbarList 里面的 path 从 pages.config.ts 得到 */
 const tabBarList = _tabBarList.map((item) => ({
   ...item,
@@ -28,11 +33,25 @@ const tabBarList = _tabBarList.map((item) => ({
 
 function selectTabBar(index: number) {
   const url = tabBarList[index].path
-  tabbarStore.setCurIdx(index)
-  uni.switchTab({ url })
+  if (tabbarStore.curIdx === index) return
+  tabbarStore.setCurIdx(index) // 提前设置 index
+  // 加延迟避免页面跳动影响 UI
+  setTimeout(() => {
+    uni.switchTab({ url })
+  }, 10)
 }
-onLoad(() => {
+const setCurrentTabIndex = () => {
+  const pages = getCurrentPages()
+  const route = pages[pages.length - 1].route
+
+  const tabList = tabBarList.map((item) => item.pagePath)
+  console.log('currentRoute:', tabList)
+  let pageIndex = tabList.indexOf(route)
+  tabbarStore.setCurIdx(pageIndex)
+}
+onLoad((e: any) => {
   // 解决原生 tabBar 未隐藏导致有2个 tabBar 的问题
+
   // #ifdef APP-PLUS | H5
   uni.hideTabBar({
     fail(err) {
@@ -43,6 +62,7 @@ onLoad(() => {
     },
   })
   // #endif
+  setCurrentTabIndex()
 })
 </script>
 <style lang="scss" scoped>
@@ -50,27 +70,31 @@ onLoad(() => {
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 84px;
+  height: 128rpx;
   padding-bottom: calc(env(safe-area-inset-bottom));
   width: 100%;
   border-radius: 20px 20px 0 0;
-  background: #fbfbfb;
+  background-color: #fff;
+  overflow: hidden;
   /* tab阴影 */
   box-shadow: 0 0 24px 0 rgba(177, 177, 177, 0.3);
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  z-index: 99;
 
-  &-item {
+  .custom-tabBar-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    &-icon {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    .custom-tabBar-item-icon {
       width: 25px;
       height: 25px;
     }
-    &-title {
+    .custom-tabBar-item-title {
       margin-top: 5px;
       color: #4e5969;
       font-size: 12px;

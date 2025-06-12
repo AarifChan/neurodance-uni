@@ -3,10 +3,10 @@ import { defineUniPages } from '@uni-helper/vite-plugin-uni-pages'
 export default defineUniPages({
   globalStyle: {
     navigationStyle: 'default',
-    navigationBarTitleText: 'unibest',
-    navigationBarBackgroundColor: '#F1F1F1',
+    navigationBarTitleText: '',
+    navigationBarBackgroundColor: '#f1f1f1',
     navigationBarTextStyle: 'black',
-    backgroundColor: '#F3F3F3',
+    backgroundColor: '#f1f1f1',
   },
   easycom: {
     autoscan: true,
@@ -22,16 +22,14 @@ export default defineUniPages({
     custom: true,
     color: '#999999',
     selectedColor: '#018d71',
-    backgroundColor: '#F8F8F8',
-    borderStyle: 'black',
-    height: '50px',
+    backgroundColor: '#ffffff',
     fontSize: '10px',
     iconWidth: '24px',
     spacing: '3px',
     list: [
       // 注意tabbar路由需要使用 layout:tabbar 布局
       {
-        pagePath: 'pages/index/index',
+        pagePath: 'pages/data/index',
         text: '睡眠大数据',
         normalIcon: '/static/images/tabBar/tabBar-normal1.png',
         selectIcon: '/static/images/tabBar/tabBar-selected1.png',
