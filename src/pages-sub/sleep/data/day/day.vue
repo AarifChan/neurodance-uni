@@ -45,7 +45,6 @@ export default {
       dataStr: '2025-02-07 周五',
       show: false,
       animationData: {},
-      dynamicHeight: '772px', // 内容高
       timeHigh: '660px', // 日历高度
       hwHeight: 0, // 内容窗口高度
       listData: [
@@ -829,8 +828,6 @@ export default {
 
       const res = uni.getSystemInfoSync()
       this.hwHeight = res.windowHeight - height // 内容窗口高度
-      this.dynamicHeight = `${this.hwHeight}px`
-      // console.log('dynamicHeight：', this.hwHeight);
 
       var tHeight = 0
       //   uni

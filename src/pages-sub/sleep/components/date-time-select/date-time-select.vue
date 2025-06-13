@@ -85,6 +85,47 @@
 
 <script lang="ts" setup>
 //
+const animationData = ref({})
+const animation = uni.createAnimation()
+import { v4 as uuidv4 } from 'uuid'
+const show = ref(false)
+const hwHeight = ref(0)
+const timeHigh = ref('660px') // 日历高度
+const listData = []
+const dynamicHeight = ref('772px')
+const dataStr = ref('02月02日-02月08日')
+onMounted(() => {
+  const res = uni.getSystemInfoSync()
+  hwHeight.value = res.windowHeight - 0 // 内容窗口高度
+})
+// 选择时间
+const selectTime = () => {
+  running()
+}
+// 日历动画
+const running = () => {
+  if (show.value) {
+    show.value = false
+    var num = hwHeight.value
+    animation.translateY(num).step({
+      duration: 500,
+    })
+    animationData.value = animation.export()
+  } else {
+    // console.log("到这里！！")
+    show.value = true
+    var num = hwHeight.value
+    animation.translateY(-num).step({
+      duration: 600,
+    })
+    animationData.value = animation.export()
+  }
+}
+const change = (e, id) => {
+  running()
+
+  // console.log(JSON.stringify(e.detail.index))
+}
 </script>
 
 <style lang="scss" scoped>
