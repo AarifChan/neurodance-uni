@@ -130,7 +130,7 @@ export default {
 
 .sleep_logs_view {
   margin-top: 38rpx;
-  margin-bottom: 232rpx;
+  margin-bottom: 32rpx;
 
   width: 689rpx;
   height: 289rpx;

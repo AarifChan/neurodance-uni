@@ -107,6 +107,7 @@ const topList = ref(['日', '周', '月', '年'])
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  background-color: white;
   :deep(.custom-segmented) {
     background-color: #f1f1f1;
     border-radius: 20rpx;
@@ -129,16 +130,14 @@ const topList = ref(['日', '周', '月', '年'])
 
 // 顶部时间选择
 .data_top_view {
-  margin-top: 32rpx;
   width: 100%;
   padding: 32rpx;
   box-sizing: border-box;
-
+  background-color: white;
   .data_top_item_view {
     display: flex;
     align-items: center;
     justify-content: center;
-
     image {
       padding: 0 5rpx;
       width: 18.5rpx;

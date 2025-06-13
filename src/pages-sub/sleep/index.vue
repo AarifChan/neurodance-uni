@@ -19,7 +19,7 @@
     />
 
     <!-- 内容 -->
-    <scroll-view :style="{ height: dynamicHeight }" scroll-y show-scrollbar>
+    <scroll-view class="page-content" scroll-y show-scrollbar>
       <day v-if="selected == 0" :selected="selected" />
       <week v-else-if="selected == 1" :selected="selected" />
       <moon v-else-if="selected == 2" :selected="selected" />
@@ -34,7 +34,6 @@ import week from './data/week/week.vue'
 import moon from './data/moon/moon.vue'
 import year from './data/year/year.vue'
 import DateTab from './components/date-tab/date-tab.vue'
-import { dayjs } from 'wot-design-uni'
 
 const currentDate = ref<number>(0)
 
@@ -57,8 +56,15 @@ const dateTabDidChange = (index: number) => {
   position: relative;
   width: 100%;
   // padding: 32rpx 0;
+
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #f3f3f3;
+}
+.page-content {
+  position: relative;
+  width: 100%;
+  // height: calc(100vh - 300rpx);
 }
 </style>

@@ -85,6 +85,10 @@
 
 <script lang="ts" setup>
 //
+
+import uniGrid from '@dcloudio/uni-ui/lib/uni-grid/uni-grid.vue'
+import uniGridItem from '@dcloudio/uni-ui/lib/uni-grid-item/uni-grid-item.vue'
+
 const animationData = ref({})
 const animation = uni.createAnimation()
 import { v4 as uuidv4 } from 'uuid'
