@@ -3,6 +3,7 @@
   style: {
     navigationBarTitleText: '',
     navigationStyle: 'custom',
+    disableScroll: true,
   },
 }
 </route>
@@ -87,7 +88,7 @@
           </view>
           <!-- 操作按钮 -->
           <view class="form-actions">
-            <view class="save-button" @click="handleLogout">退出登录</view>
+            <view class="save-button" @click="logoutAlertShow = true">退出登录</view>
             <view class="sys-btn">
               <image src="/static/images/question.png" />
               <text>系统问题</text>
@@ -96,6 +97,7 @@
         </view>
       </form>
     </view>
+    <LogoutModal v-model:show="logoutAlertShow" @confirm="handleLogout" />
   </view>
 </template>
 
@@ -105,11 +107,13 @@ import { useUserStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { toast } from '@/utils/toast'
 import { updateInfo } from '@/api/login'
+import LogoutModal from '@/components/logout-modal/logout-modal.vue'
 import { getAppVersion } from '@/utils'
 import { uploadFileUrl, useUpload } from '@/utils/uploadFile'
 import { IUploadSuccessInfo } from '@/api/login.typings'
 // 表单引用
 const formRef = ref(null)
+const logoutAlertShow = ref(false)
 
 // 用户信息
 const userStore = useUserStore()
@@ -154,6 +158,7 @@ const onChooseAvatar = (e: any) => {
 // #endif
 const handleLogout = () => {
   userStore.logout()
+  uni.navigateBack()
 }
 </script>
 

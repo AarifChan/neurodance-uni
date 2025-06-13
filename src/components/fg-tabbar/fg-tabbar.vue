@@ -70,17 +70,18 @@ onLoad((e: any) => {
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 128rpx;
+  height: 148rpx;
   padding-bottom: calc(env(safe-area-inset-bottom));
   width: 100%;
-  border-radius: 20px 20px 0 0;
+  gap: 150rpx;
+  border-radius: 40rpx 40rpx 0 0;
   background-color: #fff;
   overflow: hidden;
   /* tab阴影 */
   box-shadow: 0 0 24px 0 rgba(177, 177, 177, 0.3);
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   z-index: 99;
 
   .custom-tabBar-item {

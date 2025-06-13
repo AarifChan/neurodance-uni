@@ -13,7 +13,7 @@ import { IUserInfoVo } from '@/api/login.typings'
 // 初始化状态
 const userInfoState: IUserInfoVo = {
   id: 0,
-  name: '未登录',
+  name: '游客',
   pic: '',
 }
 
@@ -38,6 +38,7 @@ export const useUserStore = defineStore(
     // 删除用户信息
     const removeUserInfo = () => {
       userInfo.value = { ...userInfoState }
+      setToken(null)
       uni.removeStorageSync('userInfo')
       uni.removeStorageSync('token')
     }
@@ -52,11 +53,9 @@ export const useUserStore = defineStore(
       verificationCode: string
     }) => {
       const res = await _login(credentials)
-      console.log('登录信息', res)
       toast.success('登录成功')
-      console.log('login res:', res.data.accessToken)
       setToken(res.data.accessToken)
-      // getUserInfo()
+      getUserInfo()
       return res
     }
     /**
@@ -76,9 +75,6 @@ export const useUserStore = defineStore(
      */
     const logout = async () => {
       removeUserInfo()
-      uni.reLaunch({
-        url: '/pages/index/index',
-      })
     }
     /**
      * 微信登录

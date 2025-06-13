@@ -22,28 +22,28 @@ export default defineUniPages({
     custom: true,
     color: '#999999',
     selectedColor: '#018d71',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#f1f1f1',
     fontSize: '10px',
     iconWidth: '24px',
     spacing: '3px',
     list: [
       // 注意tabbar路由需要使用 layout:tabbar 布局
       {
-        pagePath: 'pages/data/index',
-        text: '睡眠大数据',
+        pagePath: 'pages/home/index',
+        text: '首页',
         normalIcon: '/static/images/tabBar/tabBar-normal1.png',
         selectIcon: '/static/images/tabBar/tabBar-selected1.png',
       },
       {
-        pagePath: 'pages/sleep/index',
-        text: '睡个好觉',
+        pagePath: 'pages/data/index',
+        text: '记录',
         normalIcon: '/static/images/tabBar/tabBar-normal2.png',
         selectIcon: '/static/images/tabBar/tabBar-selected2.png',
       },
 
       {
         pagePath: 'pages/mine/index',
-        text: '我的资料',
+        text: '我的',
         normalIcon: '/static/images/tabBar/tabBar-normal3.png',
         selectIcon: '/static/images/tabBar/tabBar-selected3.png',
       },

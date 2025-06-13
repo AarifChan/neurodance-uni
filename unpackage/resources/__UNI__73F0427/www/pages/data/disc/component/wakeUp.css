@@ -1,0 +1,77 @@
+.theme-font[data-v-6e9b3c51],
+body[data-v-6e9b3c51],
+.uni-app[data-v-6e9b3c51] {
+  font-family: MiSans;
+}
+@keyframes fadeInDown-6e9b3c51 {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn-6e9b3c51 {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.content_view[data-v-6e9b3c51] {
+  height: auto;
+}
+.up_back_view[data-v-6e9b3c51] {
+  width: 12.5rem;
+  height: 12.5rem;
+  background: rgba(40, 60, 122, 0.8);
+  box-shadow: 0 0 1.1875rem rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.tip_1_view[data-v-6e9b3c51] {
+  font-family: MiSans, MiSans;
+  font-weight: 500;
+  font-size: 0.59375rem;
+  color: #c9cdd4;
+  margin-bottom: 0.59375rem;
+}
+.logo_view[data-v-6e9b3c51] {
+  width: 5.625rem;
+  height: 4rem;
+}
+.wake_up_view[data-v-6e9b3c51] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.96875rem;
+  margin-bottom: 0.5625rem;
+}
+.wake_up_view uni-text[data-v-6e9b3c51] {
+  font-family: MiSans, MiSans;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  color: #fff;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+}
+.wake_up_view uni-textarea[data-v-6e9b3c51] {
+  width: 2.5rem;
+  height: 1.5rem;
+  background: #fff;
+  border-radius: 0.25rem;
+  font-family: MiSans, MiSans;
+  font-weight: 400;
+  font-size: 0.96875rem;
+  color: #00b4f0;
+  text-align: center;
+  margin-left: 0.21875rem;
+  margin-right: 0.21875rem;
+}

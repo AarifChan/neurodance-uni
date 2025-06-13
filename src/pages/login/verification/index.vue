@@ -148,6 +148,7 @@ const handleLogin = () => {
     .login(params)
     .then((res) => {
       toast.info('登录成功')
+      uni.reLaunch({ url: '/pages/index/index' })
     })
     .catch((err) => {
       toast.info(err.data.title)

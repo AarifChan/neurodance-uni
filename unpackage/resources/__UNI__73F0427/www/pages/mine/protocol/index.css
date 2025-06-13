@@ -1,0 +1,23 @@
+.theme-font[data-v-d43b816b],
+body[data-v-d43b816b],
+.uni-app[data-v-d43b816b] {
+  font-family: MiSans;
+}
+@keyframes fadeInDown-d43b816b {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn-d43b816b {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

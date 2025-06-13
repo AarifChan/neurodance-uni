@@ -17,7 +17,7 @@
 onMounted(() => {
   uni.hideTabBar()
   setTimeout(() => {
-    uni.reLaunch({ url: '/pages/data/index' })
+    uni.reLaunch({ url: '/pages/home/index' })
   }, 200)
 })
 </script>

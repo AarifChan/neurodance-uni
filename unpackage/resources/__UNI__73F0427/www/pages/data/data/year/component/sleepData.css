@@ -1,0 +1,180 @@
+.theme-font[data-v-d706f712],
+body[data-v-d706f712],
+.uni-app[data-v-d706f712] {
+  font-family: MiSans;
+}
+@keyframes fadeInDown-d706f712 {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn-d706f712 {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.content_view[data-v-d706f712] {
+  width: 100%;
+  height: auto;
+  background: #fff;
+}
+.top_day_view[data-v-d706f712] {
+  font-family: MiSans, MiSans;
+  font-weight: 500;
+  font-size: 0.71875rem;
+  color: #4e5969;
+  line-height: 0.84375rem;
+  text-align: center;
+  font-style: normal;
+  text-transform: none;
+}
+.sleep_long_view[data-v-d706f712] {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  position: relative;
+}
+.sleep_long_view uni-text[data-v-d706f712] {
+  font-family: MiSans, MiSans;
+  font-weight: 500;
+  font-size: 1.1875rem;
+  color: #1d2129;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+}
+.sleep_long_view .hour_view[data-v-d706f712],
+.sleep_long_view .minute_view[data-v-d706f712] {
+  font-family: MiSans, MiSans;
+  font-weight: 600;
+  font-size: 2.15625rem;
+  color: #1d2129;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+}
+.tip_view[data-v-d706f712] {
+  font-family: MiSans, MiSans;
+  font-weight: 500;
+  font-size: 0.71875rem;
+  color: #4e5969;
+  line-height: 0.84375rem;
+  text-align: center;
+  font-style: normal;
+  text-transform: none;
+  margin-top: 0.125rem;
+}
+.sleep_context_view[data-v-d706f712] {
+  width: 100%;
+  height: 12.8125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sleep_context_view .sleep_view[data-v-d706f712] {
+  width: 18.25rem;
+  height: 10.96875rem;
+}
+.type_tip_view[data-v-d706f712] {
+  width: 100%;
+  height: 2.8125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.type_tip_view uni-text[data-v-d706f712] {
+  font-family: MiSans, MiSans;
+  font-weight: 500;
+  font-size: 0.71875rem;
+  color: #4e5969;
+  line-height: 0.84375rem;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+}
+.type_tip_view .n3_view[data-v-d706f712] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.3125rem;
+}
+.type_tip_view .n3_view uni-view[data-v-d706f712] {
+  width: 0.34375rem;
+  height: 0.34375rem;
+  background: #0723c3;
+  border-radius: 0.25rem;
+  margin-right: 0.1875rem;
+}
+.type_tip_view .n2_view[data-v-d706f712] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.3125rem;
+}
+.type_tip_view .n2_view uni-view[data-v-d706f712] {
+  width: 0.34375rem;
+  height: 0.34375rem;
+  background: #374df2;
+  border-radius: 0.25rem;
+  margin-right: 0.1875rem;
+}
+.type_tip_view .n1_view[data-v-d706f712] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.3125rem;
+}
+.type_tip_view .n1_view uni-view[data-v-d706f712] {
+  width: 0.34375rem;
+  height: 0.34375rem;
+  background: #7967f3;
+  border-radius: 0.25rem;
+  margin-right: 0.1875rem;
+}
+.type_tip_view .eye_view[data-v-d706f712] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.3125rem;
+}
+.type_tip_view .eye_view uni-view[data-v-d706f712] {
+  width: 0.34375rem;
+  height: 0.34375rem;
+  background: #cf94f8;
+  border-radius: 0.25rem;
+  margin-right: 0.1875rem;
+}
+.type_tip_view .up_view[data-v-d706f712] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.3125rem;
+}
+.type_tip_view .up_view uni-view[data-v-d706f712] {
+  width: 0.34375rem;
+  height: 0.34375rem;
+  background: #ffae23;
+  border-radius: 0.25rem;
+  margin-right: 0.1875rem;
+}
+.type_tip_view .min_view[data-v-d706f712] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.3125rem;
+}
+.type_tip_view .min_view uni-view[data-v-d706f712] {
+  width: 0.34375rem;
+  height: 0.34375rem;
+  background: #00b4f0;
+  border-radius: 0.25rem;
+  margin-right: 0.1875rem;
+}

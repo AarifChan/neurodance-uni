@@ -9,7 +9,6 @@ onLaunch(() => {
   setTimeout(() => {
     uni.hideTabBar()
   }, 20)
-  useUserStore().getUserInfo()
 })
 onShow(() => {
   console.log('App Show')
@@ -22,7 +21,7 @@ onHide(() => {
 <style lang="scss">
 @font-face {
   font-family: 'MiSans';
-  src: url('./static/fonts/MiSans-Normal.ttf');
+  src: url('./static/fonts/MiSans-Demibold.ttf');
 }
 button::after {
   border: none;

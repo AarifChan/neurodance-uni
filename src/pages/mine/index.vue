@@ -4,6 +4,7 @@
   style: {
     navigationBarTitleText: '',
     disableScroll: true,
+    navigationStyle: 'custom',
   },
 }
 </route>
@@ -14,23 +15,16 @@
       <!-- 用户信息区域 -->
       <view class="user-info-section">
         <view class="side">
-          <image class="avatar-wrapper" @click="handleProfileInfo" :src="userStore.userInfo.pic" />
-          <view class="username theme-font">{{ userStore.userInfo.name }}</view>
+          <view class="avatar-wrapper" :src="userStore.userInfo.pic">
+            {{ userAvatar }}
+          </view>
+          <view class="username theme-font" @tap.stop="handleLogin">
+            {{ userStore.userInfo.name }}
+          </view>
         </view>
-        <view class="side logout" @click.stop="handleLogout">
+        <view v-if="hasLogin" class="side logout" @click.stop="showLogout = true">
           <view class="logout-title">退出登录</view>
           <image class="logout-icon" src="/static/images/logout.png" />
-        </view>
-      </view>
-      <view class="section-group">
-        <view class="sleep-info">
-          <view class="sleep-info-title">睡眠总时长</view>
-          <view class="sleep-info-right">
-            <view class="sleep-info-right-value">36</view>
-            <view class="sleep-info-right-unit">小时</view>
-            <view class="sleep-info-right-value">46</view>
-            <view class="sleep-info-right-unit">分钟</view>
-          </view>
         </view>
       </view>
 
@@ -38,17 +32,17 @@
         <view class="mine-device">
           <view class="mine-device-title">我的设备</view>
           <view class="mine-device-device">
-            <view class="mine-device-device-name">HoST-R2</view>
+            <view class="mine-device-device-name">DSP</view>
             <image class="mine-device-device-icon" src="/static/images/right-arrow.png" />
           </view>
-          <view class="mine-device-subTitle">上次链接时间:2024-10-30-16:32:28</view>
+          <view class="mine-device-subTitle">上次连接时间:2024-10-30-16:32:28</view>
         </view>
         <image class="device-card" src="/static/images/device-card.png" />
       </view>
       <view class="section-group">
         <view class="session-top">
           <view class="session-top-title">个人信息</view>
-          <view class="session-top-value">
+          <view class="session-top-value" @click="handleProfileInfo">
             <view class="session-top-value-title">编辑资料</view>
             <image class="session-top-value-icon" src="/static/images/right-arrow-gray.png" />
           </view>
@@ -84,41 +78,52 @@
         <image class="logo-card" src="/static/images/logo.png" />
       </view>
     </view>
+    <LogoutModal v-model:show="showLogout" @confirm="handleLogout" />
   </scroll-view>
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/store'
+import { useUserStore, useDeviceStore } from '@/store'
 import { useToast } from 'wot-design-uni'
+import LogoutModal from '@/components/logout-modal/logout-modal.vue'
+import { bindDeviceRequest } from '@/api/device'
+import { showToast } from '@/utils/toast'
 
 const userStore = useUserStore()
-
+const showLogout = ref(false)
 const toast = useToast()
-const hasLogin = ref(false)
 
-const handleLogout = () => {
-  uni.navigateTo({
-    url: '/pages/login/index',
-  })
-}
+const hasLogin = computed(() => {
+  return !!userStore.accessToken
+})
 
 onShow((options) => {
-  hasLogin.value = !!uni.getStorageSync('token')
   console.log('个人中心onShow', hasLogin.value, options)
 
   hasLogin.value && useUserStore().getUserInfo()
+  hasLogin.value && useDeviceStore().getBindDeviceList()
 })
 
-// 微信小程序下登录
+const handleTestFunc = () => {
+  useDeviceStore().starbindDevice({
+    sn: 'A6PAAAACGPHTest03',
+    deviceType: 'WIRELESS-REPEATER-DSP',
+  })
+}
+
+const userAvatar = computed(() => {
+  if (!hasLogin.value || userStore.userInfo.name.length === 0) {
+    return ''
+  }
+
+  return userStore.userInfo.name.slice(0, 1).toLocaleUpperCase()
+})
+
 const handleLogin = async () => {
-  // #ifdef MP-WEIXIN
-  // 微信登录
-  await userStore.wxLogin()
-  hasLogin.value = true
-  // #endif
-  // #ifndef MP-WEIXIN
+  if (hasLogin.value) {
+    return
+  }
   uni.navigateTo({ url: '/pages/login/index' })
-  // #endif
 }
 
 // #ifdef MP-WEIXIN
@@ -132,10 +137,11 @@ const getUserInfo = (e: any) => {
 const handleProfileInfo = () => {
   uni.navigateTo({ url: `/pages/mine/info/index` })
 }
-// 账号安全
-const handlePassword = () => {
-  uni.navigateTo({ url: `/pages/mine/password/index` })
+
+const handleLogout = () => {
+  userStore.logout()
 }
+
 // 消息通知
 const handleInform = () => {
   // uni.navigateTo({ url: `/pages/mine/inform/index` })
@@ -211,16 +217,15 @@ const handleClearCache = () => {
   position: relative;
   width: 100%;
   height: 100vh;
+  background-color: $primary-bg;
 }
 .profile-container {
   overflow: hidden;
-  background-color: $primary-bg;
   display: flex;
   flex-direction: column;
   padding: 32rpx;
   box-sizing: border-box;
   gap: 18px;
-  padding-bottom: calc(128rpx + env(safe-area-inset-bottom) + 32rpx);
 }
 /* 用户信息区域 */
 .user-info-section {
