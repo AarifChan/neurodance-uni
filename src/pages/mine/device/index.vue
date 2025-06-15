@@ -9,22 +9,31 @@
 </route>
 
 <template>
-  <view class="page">
+  <view class="devicePage">
     <fg-navbar />
     <view class="content">
-      <view class="product">
+      <view class="product" @tap.stop="handleTestFunc">
         <view class="product-center" />
         <image class="product-img" src="/static/images/product-detail.png" />
       </view>
-      <view class="status-title">已连接</view>
-      <view class="product-title">HoST-R2</view>
-      <view class="connect-time">上次连接时间:2024-10-30-16:32:28</view>
-      <view class="check-btn">切换设备</view>
-      <view class="sys-btn">
+      <view class="status-title">{{ deviceStatus ? '已连接' : '未连接' }}</view>
+      <view class="product-title">DSP</view>
+      <view class="connect-time">
+        上次连接时间:{{ dayjs(deviceDetail?.lastMeetTime).format('YYYY-MM-DD HH:mm:ss') }}
+      </view>
+      <view class="check-btn" @tap.stop="navChangeDevice">切换设备</view>
+      <view class="unbind-btn" @tap.stop="unbindShow = true">解绑设备</view>
+      <view class="sys-btn" @tap.stop="navQuestionPage">
         <image src="/static/images/question.png" />
         <text>连接问题</text>
       </view>
     </view>
+    <CustomModal
+      v-model:show="unbindShow"
+      title="确认解绑当前设备"
+      confirm-title="解绑"
+      @confirm="unbindDevice"
+    />
   </view>
 </template>
 
@@ -32,23 +41,55 @@
 //
 import { getLastPage } from '@/utils'
 import { useDeviceStore } from '@/store'
+import { dayjs } from 'wot-design-uni'
+const unbindShow = ref(false)
+const deviceStatus = computed(() => {
+  return useDeviceStore().deviceStatus
+})
+const deviceDetail = computed(() => {
+  return useDeviceStore().deviceDetail
+})
+const deviceInfo = ref({
+  sn: '',
+  deviceType: '',
+})
 onMounted(() => {
   const page = getLastPage() as any
   const params = page.options
   const sn = params.sn
   const deviceType = params.deviceType
-  console.log('device page:', sn, deviceType)
-  useDeviceStore().getDeviceCurrentStatus(deviceType, sn)
+  deviceInfo.value = {
+    sn,
+    deviceType,
+  }
+  console.log('device page:', sn)
+  useDeviceStore().getDeviceCurrentStatus(sn)
 })
+const navQuestionPage = () => {
+  uni.navigateTo({
+    url: '/pages/mine/question/index',
+  })
+}
+const navChangeDevice = () => {
+  uni.scanCode({
+    onlyFromCamera: true, // 是否仅允许相机扫码（默认false，可从相册选择）
+    scanType: ['qrCode', 'barCode'], // 扫码类型：二维码、条形码
+    success(res) {
+      console.log('扫码结果:', res.result)
+    },
+    fail(err) {
+      console.error('扫码失败:', err)
+    },
+  })
+}
+const handleTestFunc = async () => {}
+const unbindDevice = async () => {
+  await useDeviceStore().unbindDevice(deviceInfo.value)
+  uni.navigateBack()
+}
 </script>
 
 <style lang="scss" scoped>
-.page {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(59, 118, 242, 0.2) 100%);
-}
 .content {
   width: 100%;
   height: 100%;
@@ -104,6 +145,12 @@ onMounted(() => {
   background-color: white;
   border-radius: 24rpx;
   box-shadow: 0px 0px 24px 0px rgba(177, 177, 177, 0.18);
+}
+.unbind-btn {
+  margin-top: 32rpx;
+  line-height: 40rpx;
+  color: #c9cdd4;
+  padding: 24rpx 110rpx;
 }
 .sys-btn {
   margin-top: 100rpx;

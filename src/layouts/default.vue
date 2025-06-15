@@ -1,5 +1,5 @@
 <template>
-  <wd-config-provider :themeVars="themeVars">
+  <wd-config-provider :themeVars="themeVars" custom-class="custom-class">
     <slot />
     <wd-toast />
     <wd-message-box />
@@ -20,3 +20,11 @@ const themeVars: ConfigProviderThemeVars = {
   segmentedPadding: 'none',
 }
 </script>
+
+<style>
+.custom-class {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+</style>

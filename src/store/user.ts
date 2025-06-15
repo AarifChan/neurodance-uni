@@ -53,11 +53,23 @@ export const useUserStore = defineStore(
       operationId: string
       verificationCode: string
     }) => {
-      const res = await _login(credentials)
-      toast.success('登录成功')
-      setToken(res.data.accessToken)
-      getUserInfo()
-      return res
+      return new Promise(async (resolve, reject) => {
+        _login(credentials)
+          .then((res) => {
+            if (res.state === 200) {
+              toast.success('登录成功')
+              resolve(true)
+            } else {
+              reject(res.message)
+            }
+            setToken(res.data.accessToken)
+            getUserInfo()
+            return res
+          })
+          .catch((err) => {
+            reject(err.message)
+          })
+      })
     }
     /**
      * 获取用户信息

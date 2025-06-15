@@ -4,6 +4,7 @@
     "navigationBarTitleText": "",
     "navigationBarBackgroundColor": "#f1f1f1",
     "navigationBarTextStyle": "black",
+    "disableScroll": true,
     "backgroundColor": "#f1f1f1"
   },
   "easycom": {
@@ -18,7 +19,7 @@
     "custom": true,
     "color": "#999999",
     "selectedColor": "#018d71",
-    "backgroundColor": "#f1f1f1",
+    "backgroundColor": "#ffffff",
     "fontSize": "10px",
     "iconWidth": "24px",
     "spacing": "3px",
@@ -142,6 +143,15 @@
     },
     {
       "path": "pages/mine/protocol/index",
+      "type": "page",
+      "layout": "default",
+      "style": {
+        "disableScroll": true,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/mine/question/index",
       "type": "page",
       "layout": "default",
       "style": {

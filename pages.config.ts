@@ -6,6 +6,7 @@ export default defineUniPages({
     navigationBarTitleText: '',
     navigationBarBackgroundColor: '#f1f1f1',
     navigationBarTextStyle: 'black',
+    disableScroll: true,
     backgroundColor: '#f1f1f1',
   },
   easycom: {
@@ -22,7 +23,7 @@ export default defineUniPages({
     custom: true,
     color: '#999999',
     selectedColor: '#018d71',
-    backgroundColor: '#f1f1f1',
+    backgroundColor: '#ffffff',
     fontSize: '10px',
     iconWidth: '24px',
     spacing: '3px',

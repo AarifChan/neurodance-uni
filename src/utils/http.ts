@@ -1,7 +1,7 @@
 import { CustomRequestOptions } from '@/interceptors/request'
 export interface IResData<T> {
   data: T
-  code: number
+  state: number
   message?: string
 }
 export const http = <T>(options: CustomRequestOptions) => {

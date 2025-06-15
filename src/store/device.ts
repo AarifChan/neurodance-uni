@@ -1,14 +1,23 @@
-import { getBoundDeviceListRequest, bindDeviceRequest, getDeviceDetail } from '@/api/device'
-import { IDSPDevice } from '@/api/device/index.typings'
+import {
+  getBoundDeviceListRequest,
+  bindDeviceRequest,
+  unbindDeviceRequest,
+  getDeviceDetail,
+} from '@/api/device'
+import { IDSPDevice, IDSPSNBinding, IDSPDeviceDetailInfo } from '@/api/device/index.typings'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { toast } from '@/utils/toast'
+import { showToast, toast } from '@/utils/toast'
 
 export const useDeviceStore = defineStore(
   'device',
   () => {
     // 用户绑定设备列表
     const deviceList = ref<IDSPDevice[]>([])
+
+    const deviceStatus = ref(false)
+
+    const deviceDetail = ref<IDSPDeviceDetailInfo | null>(null)
 
     /**
      * 获取已绑定设备列表
@@ -20,8 +29,15 @@ export const useDeviceStore = defineStore(
       })
     }
 
-    const getDeviceCurrentStatus = (deviceType: string, sn: string) => {
-      getDeviceDetail(deviceType, sn).then((res) => {
+    const getDeviceCurrentStatus = (sn: string) => {
+      getDeviceDetail(sn).then((res) => {
+        if (res.state === 200) {
+          deviceDetail.value = res.data
+          deviceStatus.value = true
+        } else {
+          deviceDetail.value = null
+          deviceStatus.value = false
+        }
         console.log('getDeviceCurrentStatus:', res)
       })
     }
@@ -31,13 +47,14 @@ export const useDeviceStore = defineStore(
      * @param params sn 设备SN deviceType 设备类型
      * @returns
      */
-    const startBindDevice = async (params: { sn: string; deviceType: string }) => {
+    const startBindDevice = async (params: IDSPSNBinding) => {
       return new Promise((resolve) => {
         bindDeviceRequest(params)
           .then((res) => {
-            if (res.code === 200) {
+            if (res.state === 200) {
               toast.info('绑定成功')
               resolve(true)
+              getBindDeviceList()
             } else {
               toast.info(res.message)
               resolve(false)
@@ -50,11 +67,33 @@ export const useDeviceStore = defineStore(
       })
     }
 
+    const unbindDevice = async (params: IDSPSNBinding) => {
+      return new Promise((resolve) => {
+        unbindDeviceRequest(params)
+          .then((res) => {
+            if (res.state === 200) {
+              toast.info('解绑成功')
+              resolve(true)
+              getBindDeviceList()
+            } else {
+              toast.info(res.message)
+              resolve(false)
+            }
+          })
+          .catch((err) => {
+            resolve(false)
+          })
+      })
+    }
+
     const logout = () => {
       deviceList.value = []
     }
 
     return {
+      deviceDetail,
+      unbindDevice,
+      deviceStatus,
       getDeviceCurrentStatus,
       startBindDevice,
       deviceList,

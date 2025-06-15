@@ -97,7 +97,12 @@
         </view>
       </form>
     </view>
-    <LogoutModal v-model:show="logoutAlertShow" @confirm="handleLogout" />
+    <CustomModal
+      v-model:show="logoutAlertShow"
+      title="确定退出当前账号"
+      confirm-title="退出"
+      @confirm="handleLogout"
+    />
   </view>
 </template>
 

@@ -11,3 +11,28 @@ export interface IDSPDevice {
   sn: string
   status: number
 }
+
+export interface IDSPDeviceDeviceInfo {
+  battery: number
+  firmware: string
+  lastDeviceMeetTime: string
+  model: string
+  status: number
+  sn: string
+}
+
+export interface IDSPDeviceHostInfo {
+  battery: number
+  firmware: string
+  model: string
+  sn: string
+}
+export interface IDSPDeviceDetailInfo {
+  address: string
+  connectedTime: string
+  deviceInfo: IDSPDeviceDeviceInfo
+  hostBaseInfo: IDSPDeviceHostInfo
+  lastMeetTime: string
+  lastSyncTime: string
+  sn: string
+}

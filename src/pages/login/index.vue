@@ -7,6 +7,7 @@
 }
 </route>
 <template>
+  <fg-navbar />
   <view class="login-container">
     <!-- 背景装饰元素 -->
 
@@ -106,7 +107,6 @@ const handleOtherLogin = () => {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   padding: 0 70rpx;
   background-color: #ffffff;
   overflow: hidden;
@@ -115,7 +115,7 @@ const handleOtherLogin = () => {
 .login-header {
   display: flex;
   flex-direction: column;
-  margin-top: 120rpx;
+  margin-top: 100rpx;
   animation: fadeInDown 0.8s ease-out;
 
   .login-title {

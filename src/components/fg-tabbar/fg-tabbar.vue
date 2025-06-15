@@ -82,7 +82,7 @@ onLoad((e: any) => {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  z-index: 99;
+  z-index: 999;
 
   .custom-tabBar-item {
     display: flex;

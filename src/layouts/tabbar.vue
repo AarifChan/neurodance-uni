@@ -1,5 +1,5 @@
 <template>
-  <wd-config-provider :themeVars="themeVars">
+  <wd-config-provider :themeVars="themeVars" custom-class="custom-class">
     <slot />
     <fg-tabbar />
     <wd-toast />
@@ -16,3 +16,10 @@ const themeVars: ConfigProviderThemeVars = {
   // buttonPrimaryColor: '#07c160',
 }
 </script>
+<style>
+.custom-class {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+</style>

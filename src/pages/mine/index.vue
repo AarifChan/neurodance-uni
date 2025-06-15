@@ -10,89 +10,97 @@
 </route>
 
 <template>
-  <scroll-view class="profile" :scroll-y="true" :enable-flex="true">
-    <view class="profile-container">
-      <!-- 用户信息区域 -->
-      <view class="user-info-section">
-        <view class="side">
-          <view class="avatar-wrapper" :src="userStore.userInfo.pic">
-            {{ userAvatar }}
+  <view class="common-bg">
+    <fg-navbar :left-arrow="false" />
+    <scroll-view class="profile" :scroll-y="true" :enable-flex="true">
+      <view class="profile-container">
+        <!-- 用户信息区域 -->
+        <view class="user-info-section">
+          <view class="side">
+            <view class="avatar-wrapper" :src="userStore.userInfo.pic">
+              {{ userAvatar }}
+            </view>
+            <view class="username theme-font" @tap.stop="handleLogin">
+              {{ userStore.userInfo.name }}
+            </view>
           </view>
-          <view class="username theme-font" @tap.stop="handleLogin">
-            {{ userStore.userInfo.name }}
+          <view v-if="hasLogin" class="side logout" @click.stop="showLogout = true">
+            <view class="logout-title">退出登录</view>
+            <image class="logout-icon" src="/static/images/logout.png" />
+          </view>
+          <view v-else class="side logout" @tap.stop="handleLogin" style="font-size: 24px">
+            <view class="logout-title">去登录</view>
           </view>
         </view>
-        <view v-if="hasLogin" class="side logout" @click.stop="showLogout = true">
-          <view class="logout-title">退出登录</view>
-          <image class="logout-icon" src="/static/images/logout.png" />
-        </view>
-      </view>
 
-      <view class="section-group" v-for="(item, index) in deviceList" :key="'id' + index">
-        <view class="mine-device">
-          <view class="mine-device-title">我的设备</view>
-          <view class="mine-device-device" @tap.stop="handleDevicePage(item)">
-            <view class="mine-device-device-name">DSP</view>
-            <image class="mine-device-device-icon" src="/static/images/right-arrow.png" />
+        <view class="section-group" v-for="(item, index) in deviceList" :key="'id' + index">
+          <view class="mine-device">
+            <view class="mine-device-title">我的设备</view>
+            <view class="mine-device-device" @tap.stop="handleDevicePage(item)">
+              <view class="mine-device-device-name">DSP</view>
+              <image class="mine-device-device-icon" src="/static/images/right-arrow.png" />
+            </view>
+            <view class="mine-device-subTitle">上次连接时间:2024-10-30-16:32:28</view>
           </view>
-          <view class="mine-device-subTitle">上次连接时间:2024-10-30-16:32:28</view>
+          <image class="device-card" src="/static/images/device-card.png" />
         </view>
-        <image class="device-card" src="/static/images/device-card.png" />
+        <view class="section-group">
+          <view class="session-top">
+            <view class="session-top-title">个人信息</view>
+            <view class="session-top-value" @click="handleProfileInfo">
+              <view class="session-top-value-title">编辑资料</view>
+              <image class="session-top-value-icon" src="/static/images/right-arrow-gray.png" />
+            </view>
+          </view>
+          <view class="session-row">
+            <view class="session-row-title">绑定账号</view>
+            <view class="session-row-right">
+              <image class="common-icon" src="/static/images/wechat.png" />
+            </view>
+          </view>
+          <view class="session-row">
+            <view class="session-row-title">个人数据</view>
+            <view class="session-row-right">
+              <view class="session-row-right-title">性别,出生年月</view>
+            </view>
+          </view>
+          <view class="session-row none-border">
+            <view class="session-row-title">用户协议</view>
+            <view class="session-row-right" @tap.stop="handleProtocolPage">
+              <view class="session-row-right-title">了解更多</view>
+              <image class="session-row-right-icon" src="/static/images/right-arrow-gray.png" />
+            </view>
+          </view>
+        </view>
+        <view class="section-group" @tap.stop="handleTestFunc">
+          <view class="session-top">
+            <view class="session-top-title">了解我们</view>
+            <view class="session-top-value">
+              <view class="session-top-value-title">进入官网</view>
+              <image class="session-top-value-icon" src="/static/images/right-arrow-gray.png" />
+            </view>
+          </view>
+          <image class="logo-card" src="/static/images/logo.png" />
+        </view>
       </view>
-      <view class="section-group">
-        <view class="session-top">
-          <view class="session-top-title">个人信息</view>
-          <view class="session-top-value" @click="handleProfileInfo">
-            <view class="session-top-value-title">编辑资料</view>
-            <image class="session-top-value-icon" src="/static/images/right-arrow-gray.png" />
-          </view>
-        </view>
-        <view class="session-row">
-          <view class="session-row-title">绑定账号</view>
-          <view class="session-row-right">
-            <image class="common-icon" src="/static/images/wechat.png" />
-          </view>
-        </view>
-        <view class="session-row">
-          <view class="session-row-title">个人数据</view>
-          <view class="session-row-right">
-            <view class="session-row-right-title">性别,出生年月</view>
-          </view>
-        </view>
-        <view class="session-row none-border">
-          <view class="session-row-title">用户协议</view>
-          <view class="session-row-right" @tap.stop="handleProtocolPage">
-            <view class="session-row-right-title">了解更多</view>
-            <image class="session-row-right-icon" src="/static/images/right-arrow-gray.png" />
-          </view>
-        </view>
-      </view>
-      <view class="section-group">
-        <view class="session-top">
-          <view class="session-top-title">了解我们</view>
-          <view class="session-top-value">
-            <view class="session-top-value-title">进入官网</view>
-            <image class="session-top-value-icon" src="/static/images/right-arrow-gray.png" />
-          </view>
-        </view>
-        <image class="logo-card" src="/static/images/logo.png" />
-      </view>
-    </view>
-    <LogoutModal v-model:show="showLogout" @confirm="handleLogout" />
-  </scroll-view>
+      <CustomModal
+        v-model:show="showLogout"
+        title="确定退出当前账号"
+        confirm-title="退出"
+        @confirm="handleLogout"
+      />
+    </scroll-view>
+  </view>
 </template>
 
 <script lang="ts" setup>
 import { useUserStore, useDeviceStore } from '@/store'
-import { useToast } from 'wot-design-uni'
-import LogoutModal from '@/components/logout-modal/logout-modal.vue'
 
-import { showToast } from '@/utils/toast'
+import { toast } from '@/utils/toast'
 import { IDSPDevice } from '@/api/device/index.typings'
 
 const userStore = useUserStore()
 const showLogout = ref(false)
-const toast = useToast()
 
 const hasLogin = computed(() => {
   return !!userStore.accessToken
@@ -114,7 +122,7 @@ const handleProtocolPage = () => {
 
 const handleTestFunc = () => {
   useDeviceStore().startBindDevice({
-    sn: 'A6PAAAACGPHTest03',
+    sn: 'A6PCAAACGPHTest0001',
     deviceType: 'WIRELESS-REPEATER-DSP',
   })
 }
@@ -148,11 +156,16 @@ const getUserInfo = (e: any) => {
 
 // 个人资料
 const handleProfileInfo = () => {
+  if (!hasLogin.value) {
+    toast.info('请先登录')
+    return
+  }
   uni.navigateTo({ url: `/pages/mine/info/index` })
 }
 
 const handleLogout = () => {
   userStore.logout()
+  showLogout.value = false
 }
 
 // 消息通知
@@ -227,10 +240,8 @@ const handleClearCache = () => {
 <style lang="scss" scoped>
 /* 基础样式 */
 .profile {
-  position: relative;
   width: 100%;
-  height: 100vh;
-  background-color: $primary-bg;
+  height: 100%;
 }
 .profile-container {
   overflow: hidden;

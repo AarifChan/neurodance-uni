@@ -9,19 +9,22 @@
 </route>
 
 <template>
-  <view class="home">
-    <view class="card-swiper">
-      <wd-swiper
-        :list="swiperList"
-        :autoplay="false"
-        v-model:current="current"
-        @change="onChange"
-        custom-indicator-class="custom-indicator-class"
-        custom-image-class="custom-image"
-        custom-next-image-class="custom-image-prev"
-        custom-prev-image-class="custom-image-prev"
-        :indicator="true"
-      />
+  <view class="common-bg">
+    <view class="home">
+      <view class="card-swiper">
+        <wd-swiper
+          :list="swiperList"
+          :autoplay="false"
+          :loop="false"
+          v-model:current="current"
+          @change="onChange"
+          custom-indicator-class="custom-indicator-class"
+          custom-image-class="custom-image"
+          custom-next-image-class="custom-image-prev"
+          custom-prev-image-class="custom-image-prev"
+          :indicator="true"
+        />
+      </view>
     </view>
   </view>
 </template>
@@ -48,8 +51,6 @@ function onChange(e) {
 //
 .home {
   width: 100%;
-  height: calc(100vh - 148rpx + 40rpx);
-  padding-bottom: 40rpx;
 }
 .card-swiper {
   width: 100%;

@@ -17,9 +17,9 @@ withDefaults(
     rightText: '',
     leftArrow: true,
     bordered: false,
-    fixed: false,
+    fixed: true,
     placeholder: true,
-    zIndex: 1,
+    zIndex: 99,
     safeAreaInsetTop: true,
     leftDisabled: false,
     rightDisabled: false,
@@ -53,7 +53,12 @@ function handleClickLeft() {
     @click-left="handleClickLeft"
   >
     <template #left>
-      <image class="back-arrow" src="/static/svg/back-arrow.svg" mode="scaleToFill" />
+      <image
+        v-if="leftArrow"
+        class="back-arrow"
+        src="/static/svg/back-arrow.svg"
+        mode="scaleToFill"
+      />
     </template>
 
     <template #title>

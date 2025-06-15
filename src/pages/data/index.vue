@@ -10,7 +10,10 @@
 </route>
 
 <template>
-  <view class=""></view>
+  <view class="common-bg">
+    <fg-navbar :leftArrow="false" />
+    <view class=""></view>
+  </view>
 </template>
 
 <script lang="ts" setup>
