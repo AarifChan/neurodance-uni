@@ -136,7 +136,8 @@
       "type": "page",
       "layout": "default",
       "style": {
-        "navigationBarTitleText": ""
+        "disableScroll": true,
+        "navigationStyle": "custom"
       }
     }
   ],

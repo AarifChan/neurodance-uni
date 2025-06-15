@@ -61,7 +61,7 @@
         </view>
         <view class="session-row none-border">
           <view class="session-row-title">用户协议</view>
-          <view class="session-row-right">
+          <view class="session-row-right" @tap.stop="handleProtocolPage">
             <view class="session-row-right-title">了解更多</view>
             <image class="session-row-right-icon" src="/static/images/right-arrow-gray.png" />
           </view>
@@ -103,6 +103,10 @@ onShow((options) => {
   hasLogin.value && useUserStore().getUserInfo()
   hasLogin.value && useDeviceStore().getBindDeviceList()
 })
+
+const handleProtocolPage = () => {
+  uni.navigateTo({ url: '/pages/mine/protocol/index' })
+}
 
 const handleTestFunc = () => {
   useDeviceStore().starbindDevice({

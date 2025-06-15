@@ -21,7 +21,14 @@ onHide(() => {
 <style lang="scss">
 @font-face {
   font-family: 'MiSans';
+
+  src: url('./static/fonts/MiSans-Normal.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'MiSans';
   src: url('./static/fonts/MiSans-Demibold.ttf');
+  font-weight: 500;
 }
 button::after {
   border: none;

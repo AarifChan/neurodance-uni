@@ -44,6 +44,7 @@ function handleClickLeft() {
     :left-arrow="leftArrow"
     :bordered="bordered"
     :fixed="fixed"
+    custom-style="background-color: transparent !important;"
     :placeholder="placeholder"
     :z-index="zIndex"
     :safe-area-inset-top="safeAreaInsetTop"
