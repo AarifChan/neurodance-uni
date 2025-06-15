@@ -28,10 +28,10 @@
         </view>
       </view>
 
-      <view class="section-group">
+      <view class="section-group" v-for="(item, index) in deviceList" :key="'id' + index">
         <view class="mine-device">
           <view class="mine-device-title">我的设备</view>
-          <view class="mine-device-device">
+          <view class="mine-device-device" @tap.stop="handleDevicePage(item)">
             <view class="mine-device-device-name">DSP</view>
             <image class="mine-device-device-icon" src="/static/images/right-arrow.png" />
           </view>
@@ -86,8 +86,9 @@
 import { useUserStore, useDeviceStore } from '@/store'
 import { useToast } from 'wot-design-uni'
 import LogoutModal from '@/components/logout-modal/logout-modal.vue'
-import { bindDeviceRequest } from '@/api/device'
+
 import { showToast } from '@/utils/toast'
+import { IDSPDevice } from '@/api/device/index.typings'
 
 const userStore = useUserStore()
 const showLogout = ref(false)
@@ -95,6 +96,9 @@ const toast = useToast()
 
 const hasLogin = computed(() => {
   return !!userStore.accessToken
+})
+const deviceList = computed(() => {
+  return useDeviceStore().deviceList
 })
 
 onShow((options) => {
@@ -109,9 +113,14 @@ const handleProtocolPage = () => {
 }
 
 const handleTestFunc = () => {
-  useDeviceStore().starbindDevice({
+  useDeviceStore().startBindDevice({
     sn: 'A6PAAAACGPHTest03',
     deviceType: 'WIRELESS-REPEATER-DSP',
+  })
+}
+const handleDevicePage = (item: IDSPDevice) => {
+  uni.navigateTo({
+    url: `/pages/mine/device/index?sn=${item.sn}&deviceType=${item.deviceType}`,
   })
 }
 

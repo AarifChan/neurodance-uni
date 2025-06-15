@@ -1,4 +1,5 @@
-import { getBoundDeviceListRequest, bindDeviceRequest } from '@/api/device'
+import { getBoundDeviceListRequest, bindDeviceRequest, getDeviceDetail } from '@/api/device'
+import { IDSPDevice } from '@/api/device/index.typings'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { toast } from '@/utils/toast'
@@ -7,7 +8,7 @@ export const useDeviceStore = defineStore(
   'device',
   () => {
     // 用户绑定设备列表
-    const deviceList = ref([])
+    const deviceList = ref<IDSPDevice[]>([])
 
     /**
      * 获取已绑定设备列表
@@ -15,6 +16,13 @@ export const useDeviceStore = defineStore(
     const getBindDeviceList = () => {
       getBoundDeviceListRequest('WIRELESS-REPEATER-DSP').then((res) => {
         console.log('deviceList:', res)
+        deviceList.value = res.data
+      })
+    }
+
+    const getDeviceCurrentStatus = (deviceType: string, sn: string) => {
+      getDeviceDetail(deviceType, sn).then((res) => {
+        console.log('getDeviceCurrentStatus:', res)
       })
     }
 
@@ -23,7 +31,7 @@ export const useDeviceStore = defineStore(
      * @param params sn 设备SN deviceType 设备类型
      * @returns
      */
-    const starbindDevice = async (params: { sn: string; deviceType: string }) => {
+    const startBindDevice = async (params: { sn: string; deviceType: string }) => {
       return new Promise((resolve) => {
         bindDeviceRequest(params)
           .then((res) => {
@@ -42,10 +50,16 @@ export const useDeviceStore = defineStore(
       })
     }
 
+    const logout = () => {
+      deviceList.value = []
+    }
+
     return {
-      starbindDevice,
+      getDeviceCurrentStatus,
+      startBindDevice,
       deviceList,
       getBindDeviceList,
+      logout,
     }
   },
   {

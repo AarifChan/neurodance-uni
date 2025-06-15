@@ -123,6 +123,15 @@
       }
     },
     {
+      "path": "pages/mine/device/index",
+      "type": "page",
+      "layout": "default",
+      "style": {
+        "disableScroll": true,
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/mine/info/index",
       "type": "page",
       "style": {

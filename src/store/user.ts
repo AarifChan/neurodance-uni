@@ -9,6 +9,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { toast } from '@/utils/toast'
 import { IUserInfoVo } from '@/api/login.typings'
+import { useDeviceStore } from './device'
 
 // 初始化状态
 const userInfoState: IUserInfoVo = {
@@ -75,6 +76,7 @@ export const useUserStore = defineStore(
      */
     const logout = async () => {
       removeUserInfo()
+      useDeviceStore().logout()
     }
     /**
      * 微信登录

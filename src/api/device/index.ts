@@ -1,15 +1,19 @@
 import { http } from '@/utils/http'
 
-import { IDSPSNBinding } from './index.typings'
+import { IDSPSNBinding, IDSPDevice } from './index.typings'
 
 export const bindDeviceRequest = (params: IDSPSNBinding) => {
-  return http.post('/Api/Device/DSPSNBinding', params)
+  return http.post('/Device/dspSNBinding', params)
 }
 
 export const getBoundDeviceListRequest = (deviceType: string) => {
-  return http.get('/Api/Device/SNBindingList', {
+  return http.get<IDSPDevice[]>('/device/snBindingList', {
     deviceType,
   })
+}
+
+export const getDeviceDetail = (deviceType: string, sn: string) => {
+  return http.get(`/${deviceType}/${sn}`)
 }
 
 export const getDeviceLastUploadRequest = (sn: string) => {

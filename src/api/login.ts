@@ -15,7 +15,7 @@ export interface ILoginForm {
  * @returns ICaptcha 验证码
  */
 export const getCode = (mobile: string) => {
-  return http.post<ICaptcha>('/Api/Account/SendSMSCodeToMobile', { UserName: mobile })
+  return http.post<ICaptcha>('/account/sendSMSCodeToMobile', { UserName: mobile })
 }
 
 /**
@@ -23,14 +23,14 @@ export const getCode = (mobile: string) => {
  * @param loginForm 登录表单
  */
 export const login = (loginForm: ILoginForm) => {
-  return http.post<IUserLogin>('/Api/Account/LoginRegisterSMSConfirm', loginForm)
+  return http.post<IUserLogin>('/account/loginRegisterSMSConfirm', loginForm)
 }
 
 /**
  * 获取用户信息
  */
 export const getUserInfo = () => {
-  return http.get<IUserInfoVo>('/Api/Account/detail')
+  return http.get<IUserInfoVo>('/account/detail')
 }
 
 /**
@@ -44,7 +44,7 @@ export const logout = () => {
  * 修改用户信息
  */
 export const updateInfo = (data: IUpdateInfo) => {
-  return http.post('/Api/Account/edit', data)
+  return http.post('/account/edit', data)
 }
 
 /**
