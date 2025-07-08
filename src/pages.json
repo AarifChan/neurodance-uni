@@ -92,6 +92,15 @@
       }
     },
     {
+      "path": "pages/userProtocol/index",
+      "type": "page",
+      "layout": "default",
+      "style": {
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/welcome/index",
       "type": "page",
       "layout": "default",

@@ -1,12 +1,12 @@
 <template>
-  <view class="custom-date-tab">
+  <!-- <view class="custom-date-tab">
     <wd-segmented
       :options="topList"
       @change="handleChange"
       customClass="custom-segmented"
       v-model:value="current"
     />
-  </view>
+  </view> -->
   <view class="data_top_view" ref="topView">
     <view class="data_top_item_view">
       <image src="/static/images/sleep/btn_ico_zuojiantou_nor.png" @tap.stop="didClickLeft" />
