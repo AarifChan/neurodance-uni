@@ -1,6 +1,6 @@
 <!-- 睡眠波 -->
 <template>
-  <view>
+  <view class="sleep_chart">
     <view class="content_view">
       <!-- 睡眠时长 -->
       <view class="sleep_long_view">
@@ -69,17 +69,12 @@
     <view class="type_tip_view">
       <view class="n3_view">
         <view></view>
-        <text>N3深睡</text>
+        <text>深睡</text>
       </view>
 
       <view class="n2_view">
         <view></view>
-        <text>N2浅睡</text>
-      </view>
-
-      <view class="n1_view">
-        <view></view>
-        <text>N1浅睡</text>
+        <text>浅睡</text>
       </view>
 
       <view class="eye_view">
@@ -95,115 +90,60 @@
   </view>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { v4 as uuidv4 } from 'uuid'
 import * as echarts from 'echarts'
-// import * as sleepData from '@/utils/sleepData'
 
-export default {
-  data() {
-    return {
-      item: {
-        hour: 0,
-        minute: 0,
-        state: '正常',
-        isExtend: 1, // 0: 无变化、1: 增加、2: 减少
-        id: undefined, // 当前id
-        startTime: '2:09', // 开始时间 - 时分
-        endTime: '7:49', // 结束时间 - 时分
-        startDate: '', // 开始日期
-        endDate: '', // 结束日期
-      },
-      option: undefined,
-      myChart: undefined,
-      reportList: [],
-    }
-  },
-  components: {},
-  mounted() {
-    this.setECharts()
+const item = ref({
+  hour: 0,
+  minute: 0,
+  state: '正常',
+  isExtend: 1, // 0: 无变化、1: 增加、2: 减少
+  id: undefined, // 当前id
+  startTime: '2:09', // 开始时间 - 时分
+  endTime: '7:49', // 结束时间 - 时分
+  startDate: '', // 开始日期
+  endDate: '', // 结束日期
+})
+const option = ref(undefined)
+const myChart = ref(undefined)
+const reportList = ref([])
+const getStateImage = (val: number) => {
+  switch (val) {
+    case 0:
+      return '/static/images/sleep/ico_shujububian.png'
 
-    // this.getSleepData()
-  },
-  methods: {
-    getStateImgae(val) {
-      switch (val) {
-        case 0:
-          return '/static/images/sleep/ico_shujububian.png'
+    case 1:
+      return '/static/images/sleep/ico_shujushangsheng.png'
 
-        case 1:
-          return '/static/images/sleep/ico_shujushangsheng.png'
-
-        case 2:
-          return '/static/images/sleep/ico_shujuxiajiang.png'
-      }
-    },
-    setECharts() {
-      this.myChart = echarts.init(document.getElementById('main'))
-    },
-    // 切换数据
-    switchData(val) {
-      for (var i = 0; i < this.reportList.length; i++) {
-        if (this.reportList[i].id == val) {
-          this.item = this.reportList[i]
-          this.getSleepList(this.item.id)
-        }
-      }
-    },
-    eegView() {
-      if (window.android != null && window.android.goLandscapeProfessional != null) {
-        window.android.goLandscapeProfessional('userJson')
-      }
-    },
-    // 获取睡眠信息
-    getSleepData() {
-      const _this = this
-      this.$http
-        .request({
-          url: this.$http.SLEEP_SLEEP,
-          method: 'POST',
-          data: {
-            date: '2025-05-09',
-          },
-        })
-        .then((res) => {
-          if (res.state == 200) {
-            if (res.data != null && res.data.length > 0) {
-              // console.log(JSON.stringify(res))
-              //   _this.reportList = sleepData.getSleepTime(res.data)
-              _this.item = _this.reportList[0]
-              _this.getSleepList(_this.item.id)
-            }
-          } else {
-          }
-        })
-    },
-    // 睡眠分期列表
-    getSleepList(val) {
-      const _this = this
-      this.$http
-        .request({
-          url: this.$http.SLEEP_STAGE + val,
-          method: 'GET',
-          data: {},
-        })
-        .then((res) => {
-          if (res.state == 200) {
-            // this.option = sleepData.daySleepData(echarts, sleepData.getList(res.data))
-            this.myChart.setOption(this.option)
-          } else {
-          }
-        })
-    },
-  },
+    case 2:
+      return '/static/images/sleep/ico_shujuxiajiang.png'
+  }
 }
+const setECharts = () => {
+  myChart.value = echarts.init(document.getElementById('main'))
+}
+// 切换数据
+const switchData = (val) => {
+  for (var i = 0; i < reportList.value.length; i++) {
+    if (reportList.value[i].id == val) {
+      item.value = reportList.value[i]
+      getSleepList(item.value?.id)
+    }
+  }
+}
+const getSleepList = () => {}
 </script>
 
 <style lang="scss" scoped>
+.sleep_chart {
+  position: relative;
+  width: 100%;
+}
 .content_view {
   width: 100%;
-  height: auto;
-
+  // height: auto;
+  height: 350px;
   background: #fff;
 }
 
@@ -442,7 +382,7 @@ export default {
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 
   text {
     font-family: MiSans, MiSans;

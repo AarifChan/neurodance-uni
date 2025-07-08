@@ -4,10 +4,10 @@ export default defineUniPages({
   globalStyle: {
     navigationStyle: 'default',
     navigationBarTitleText: '',
-    navigationBarBackgroundColor: '#f1f1f1',
+    navigationBarBackgroundColor: '#ffffff',
     navigationBarTextStyle: 'black',
     disableScroll: true,
-    backgroundColor: '#f1f1f1',
+    backgroundColor: '#ffffff',
   },
   easycom: {
     autoscan: true,

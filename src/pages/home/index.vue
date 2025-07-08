@@ -11,20 +11,7 @@
 <template>
   <view class="common-bg">
     <view class="home">
-      <view class="card-swiper">
-        <wd-swiper
-          :list="swiperList"
-          :autoplay="false"
-          :loop="false"
-          v-model:current="current"
-          @change="onChange"
-          custom-indicator-class="custom-indicator-class"
-          custom-image-class="custom-image"
-          custom-next-image-class="custom-image-prev"
-          custom-prev-image-class="custom-image-prev"
-          :indicator="true"
-        />
-      </view>
+      <view class="custom-btn"><button @click="handleClick">睡眠详情</button></view>
     </view>
   </view>
 </template>
@@ -41,6 +28,9 @@ const swiperList = ref([
 ])
 function handleClick(e) {
   console.log(e)
+  uni.navigateTo({
+    url: '/pages-sub/sleep/index',
+  })
 }
 function onChange(e) {
   console.log(e)
@@ -51,6 +41,10 @@ function onChange(e) {
 //
 .home {
   width: 100%;
+}
+.custom-btn {
+  margin: 8rpx auto;
+  width: 80%;
 }
 .card-swiper {
   width: 100%;

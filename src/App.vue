@@ -27,7 +27,7 @@ onHide(() => {
 }
 @font-face {
   font-family: 'MiSans';
-  src: url('./static/fonts/MiSans-Demibold.ttf');
+  src: url('./static/fonts/MiSans-Bold.ttf');
   font-weight: 500;
 }
 button::after {

@@ -1,6 +1,6 @@
 <!-- HoST - 日 -->
 <template>
-  <view>
+  <view class="data_content">
     <sleep-data />
     <clock />
     <sleep-rating />
@@ -875,8 +875,10 @@ import suggestionsLogs from './component/suggestionsLogs.vue'
 </script>
 
 <style lang="scss" scoped>
-.content_view {
+.data_content {
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>

@@ -11,6 +11,7 @@
 <!-- HoST数据首页 -->
 <template>
   <view class="content_view">
+    <fg-navbar title="睡眠详情" />
     <!-- 浮层 - 日、周、月、年 -->
     <DateTab
       v-model:selected="selected"

@@ -11,6 +11,7 @@ withDefaults(
     safeAreaInsetTop?: boolean
     leftDisabled?: boolean
     rightDisabled?: boolean
+    title?: string
   }>(),
   {
     leftText: '',
@@ -23,6 +24,7 @@ withDefaults(
     safeAreaInsetTop: true,
     leftDisabled: false,
     rightDisabled: false,
+    title: '',
   },
 )
 
@@ -44,7 +46,7 @@ function handleClickLeft() {
     :left-arrow="leftArrow"
     :bordered="bordered"
     :fixed="fixed"
-    custom-style="background-color: transparent !important;"
+    custom-style="background-color: white !important;"
     :placeholder="placeholder"
     :z-index="zIndex"
     :safe-area-inset-top="safeAreaInsetTop"
@@ -62,7 +64,7 @@ function handleClickLeft() {
     </template>
 
     <template #title>
-      <slot />
+      <text style="color: #000; font-size: 16px">{{ title }}</text>
     </template>
   </wd-navbar>
 </template>

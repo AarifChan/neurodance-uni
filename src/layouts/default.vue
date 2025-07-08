@@ -1,5 +1,5 @@
 <template>
-  <wd-config-provider :themeVars="themeVars" custom-class="custom-class">
+  <wd-config-provider :themeVars="themeVars">
     <slot />
     <wd-toast />
     <wd-message-box />
@@ -21,10 +21,4 @@ const themeVars: ConfigProviderThemeVars = {
 }
 </script>
 
-<style>
-.custom-class {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-}
-</style>
+<style></style>
