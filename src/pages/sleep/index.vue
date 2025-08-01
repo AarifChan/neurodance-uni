@@ -33,7 +33,7 @@ import day from './data/day/day.vue'
 import week from './data/week/week.vue'
 import moon from './data/moon/moon.vue'
 import year from './data/year/year.vue'
-import DateTab from './components/date-tab/date-tab.vue'
+import DateTab from '@/components/date-tab/date-tab.vue'
 import { getSleepSummary, getSleepDetail, type SleepData } from '@/api/sleep/index'
 const currentDate = ref<number>(0)
 const sleepReport = ref<SleepData | null>(null)
