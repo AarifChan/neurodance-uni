@@ -70,8 +70,8 @@ const initChart = () => {
 
 // 更新图表数据
 const updateChart = () => {
-  if (!chart || !hasData.value) return
-
+  // if (!chart || !hasData.value) return
+  // console.log('Updating chart with data:', props.dataList)
   const option = {
     grid: {
       top: 10,

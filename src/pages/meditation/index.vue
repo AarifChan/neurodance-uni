@@ -110,7 +110,6 @@ const getTabData = async () => {
   const id = selectId.value
   const res = await getMeditationDetail({ meditationId: id })
 
-  console.log('getSleepReport:', res.data)
   if (res.state === 200) {
     meditationReport.value = res.data
     return
