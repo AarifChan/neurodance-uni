@@ -55,9 +55,9 @@
       }
     },
     {
-      "path": "pages/data/index",
+      "path": "pages/meditation/index",
       "type": "page",
-      "layout": "tabbar",
+      "layout": "default",
       "style": {
         "navigationBarTitleText": "",
         "disableScroll": true,
@@ -65,26 +65,9 @@
       }
     },
     {
-      "path": "pages/home/index",
+      "path": "pages/sleep/index",
       "type": "page",
-      "layout": "tabbar",
-      "style": {
-        "disableScroll": true,
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/login/index",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/mine/index",
-      "type": "page",
-      "layout": "tabbar",
+      "layout": "default",
       "style": {
         "navigationBarTitleText": "",
         "disableScroll": true,
@@ -101,321 +84,242 @@
       }
     },
     {
-      "path": "pages/welcome/index",
-      "type": "page",
-      "layout": "default",
-      "style": {
-        "navigationBarTitleText": ""
-      }
+      "path": "pages/sleep/disc/index-test",
+      "type": "page"
     },
     {
-      "path": "pages/login/account/index",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
-      }
+      "path": "pages/sleep/disc/index",
+      "type": "page"
     },
     {
-      "path": "pages/login/verification/index",
-      "type": "page",
-      "layout": "default",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
-      }
+      "path": "pages/sleep/disc/index2",
+      "type": "page"
     },
     {
-      "path": "pages/mine/about/index",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "关于我们"
-      }
+      "path": "pages/sleep/professional/index",
+      "type": "page"
     },
     {
-      "path": "pages/mine/device/index",
-      "type": "page",
-      "layout": "default",
-      "style": {
-        "disableScroll": true,
-        "navigationStyle": "custom"
-      }
+      "path": "pages/sleep/sleep/index",
+      "type": "page"
     },
     {
-      "path": "pages/mine/info/index",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom",
-        "disableScroll": true
-      }
+      "path": "pages/sleep/data/day/day",
+      "type": "page"
     },
     {
-      "path": "pages/mine/protocol/index",
-      "type": "page",
-      "layout": "default",
-      "style": {
-        "disableScroll": true,
-        "navigationStyle": "custom"
-      }
+      "path": "pages/sleep/data/moon/moon",
+      "type": "page"
     },
     {
-      "path": "pages/mine/question/index",
-      "type": "page",
-      "layout": "default",
-      "style": {
-        "disableScroll": true,
-        "navigationStyle": "custom"
-      }
+      "path": "pages/sleep/data/week/week",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/year",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/disc/component/circularSet",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/disc/component/sleepLog",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/disc/component/sleepPosition",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/disc/component/starlitSky",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/disc/component/wakeUp",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/professional/component/bodyStand",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/professional/component/eegChart",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/professional/component/eegScreen",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/professional/component/sleepChart",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/professional/component/snoreChart",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/sleep/line/eeg",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/sleep/line/eog",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/sleep/line/snore",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/day/component/clock",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/day/component/sleepData",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/day/component/sleepLong",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/day/component/sleepRating",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/day/component/sleepStudy",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/day/component/suggestionsLogs",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/alarmClock",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/averageBreathe",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/averageSleepPosition",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/averageStartUp",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/averageTimeSleep",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/deepSleepAverage",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/deepSleepLong",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/sleepData",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/sleepRating",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/moon/component/suggestionExplain",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/alarmClock",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/averageBreathe",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/averageSleepPosition",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/averageStartUp",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/averageTimeSleep",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/deepSleepAverage",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/deepSleepLong",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/sleepData",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/sleepRating",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/week/component/suggestionExplain",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/alarmClock",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/averageBreathe",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/averageSleepPosition",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/averageStartUp",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/averageTimeSleep",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/deepSleepAverage",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/deepSleepLong",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/sleepData",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/sleepRating",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/year/component/suggestionExplain",
+      "type": "page"
     }
   ],
   "subPackages": [
     {
       "root": "pages-sub",
-      "pages": [
-        {
-          "path": "sleep/index",
-          "type": "page",
-          "layout": "default",
-          "style": {
-            "navigationBarTitleText": "",
-            "disableScroll": true,
-            "navigationStyle": "custom"
-          }
-        },
-        {
-          "path": "sleep/disc/index-test",
-          "type": "page"
-        },
-        {
-          "path": "sleep/disc/index",
-          "type": "page"
-        },
-        {
-          "path": "sleep/disc/index2",
-          "type": "page"
-        },
-        {
-          "path": "sleep/professional/index",
-          "type": "page"
-        },
-        {
-          "path": "sleep/sleep/index",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/day/day",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/moon",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/week",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/year",
-          "type": "page"
-        },
-        {
-          "path": "sleep/disc/component/circularSet",
-          "type": "page"
-        },
-        {
-          "path": "sleep/disc/component/sleepLog",
-          "type": "page"
-        },
-        {
-          "path": "sleep/disc/component/sleepPosition",
-          "type": "page"
-        },
-        {
-          "path": "sleep/disc/component/starlitSky",
-          "type": "page"
-        },
-        {
-          "path": "sleep/disc/component/wakeUp",
-          "type": "page"
-        },
-        {
-          "path": "sleep/professional/component/bodyStand",
-          "type": "page"
-        },
-        {
-          "path": "sleep/professional/component/eegChart",
-          "type": "page"
-        },
-        {
-          "path": "sleep/professional/component/eegScreen",
-          "type": "page"
-        },
-        {
-          "path": "sleep/professional/component/sleepChart",
-          "type": "page"
-        },
-        {
-          "path": "sleep/professional/component/snoreChart",
-          "type": "page"
-        },
-        {
-          "path": "sleep/sleep/line/eeg",
-          "type": "page"
-        },
-        {
-          "path": "sleep/sleep/line/eog",
-          "type": "page"
-        },
-        {
-          "path": "sleep/sleep/line/snore",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/day/component/clock",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/day/component/sleepData",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/day/component/sleepLong",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/day/component/sleepRating",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/day/component/sleepStudy",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/day/component/suggestionsLogs",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/alarmClock",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/averageBreathe",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/averageSleepPosition",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/averageStartUp",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/averageTimeSleep",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/deepSleepAverage",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/deepSleepLong",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/sleepData",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/sleepRating",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/moon/component/suggestionExplain",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/alarmClock",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/averageBreathe",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/averageSleepPosition",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/averageStartUp",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/averageTimeSleep",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/deepSleepAverage",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/deepSleepLong",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/sleepData",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/sleepRating",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/week/component/suggestionExplain",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/alarmClock",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/averageBreathe",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/averageSleepPosition",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/averageStartUp",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/averageTimeSleep",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/deepSleepAverage",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/deepSleepLong",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/sleepData",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/sleepRating",
-          "type": "page"
-        },
-        {
-          "path": "sleep/data/year/component/suggestionExplain",
-          "type": "page"
-        }
-      ]
+      "pages": []
     }
   ]
 }

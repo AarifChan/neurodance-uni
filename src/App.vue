@@ -4,11 +4,16 @@ import { tabBarList } from '@/utils/index'
 import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'
 import { useUserStore } from './store'
 
-onLaunch(() => {
-  console.log('App Launch')
-  setTimeout(() => {
-    uni.hideTabBar()
-  }, 20)
+onLaunch((e) => {
+  console.log('App Launch:', e)
+  const userStore = useUserStore()
+  console.log('token:', e.query.token)
+  const token = e.query.token
+  if (token) {
+    userStore.setToken(token)
+  } else {
+    userStore.setToken(null)
+  }
 })
 onShow(() => {
   console.log('App Show')
@@ -19,17 +24,6 @@ onHide(() => {
 </script>
 
 <style lang="scss">
-@font-face {
-  font-family: 'MiSans';
-
-  src: url('./static/fonts/MiSans-Normal.ttf');
-  font-weight: 400;
-}
-@font-face {
-  font-family: 'MiSans';
-  src: url('./static/fonts/MiSans-Bold.ttf');
-  font-weight: 500;
-}
 button::after {
   border: none;
 }

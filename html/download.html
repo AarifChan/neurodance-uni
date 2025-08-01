@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>枕月APP 下载</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(to bottom, #f0f4ff, #ffffff);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: 100vh;
+      }
+
+      .back {
+        position: absolute;
+        top: 20px;
+        left: 16px;
+        font-size: 20px;
+        color: #555;
+        cursor: pointer;
+      }
+
+      .title {
+        margin-top: 60px;
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .logo {
+        margin: 32px 0 12px;
+        width: 120px;
+        height: 120px;
+        border-radius: 24px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .app-name {
+        font-size: 20px;
+        font-weight: 600;
+        color: #222;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        color: #888;
+        margin-top: 4px;
+        margin-bottom: 40px;
+      }
+
+      .download-button {
+        background: linear-gradient(to right, #3b82f6, #6366f1);
+        color: white;
+        padding: 14px 120px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+      }
+
+      .download-button:hover {
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="back" onclick="history.back()">←</div>
+
+    <div class="title">枕月APP</div>
+
+    <img class="logo" src="logo.png" alt="枕月图标" />
+
+    <div class="app-name">枕月APP</div>
+    <div class="subtitle">健康助眠，伴你入眠</div>
+
+    <button class="download-button" onclick="downloadApp()">下载APP</button>
+
+    <script>
+      function downloadApp() {
+        // 这里替换为你的实际下载地址
+        var u = navigator.userAgent
+        var ua = u.toLowerCase()
+        if (/iphone|ipad|ipod/.test(ua)) {
+          // iOS 系统 ->  跳AppStore下载地址
+          //alert("iOS");
+          window.location.href = 'https://testflight.apple.com/join/mdkP9Gve'
+        } else if (/android/.test(ua)) {
+          // 安卓系统 -> 跳安卓端下载地址
+          window.location.href = 'https://www.neurodance.cn'
+          //alert("android");
+        } else if (IsPC()) {
+          // PC端
+          window.location.href = 'https://www.neurodance.cn'
+        }
+      }
+    </script>
+  </body>
+</html>

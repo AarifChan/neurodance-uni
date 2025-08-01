@@ -9,7 +9,7 @@
 </route>
 
 <template>
-  <view class="page">
+  <scroll-view class="page" scroll-y show-scrollbar>
     <view class="row">前言</view>
     <view class="row">
       《枕月APP隐私政策与用户服务协议》（以下简称“本协议”）由枕月APP用户（以下简称“用户”）与枕月APP开发公司神舞科技（以下简称“服务提供方”）共同缔结，服务提供方将依据本协议的规定为用户提供服务。
@@ -200,7 +200,7 @@
     <view class="row">
       如果您对我们的隐私政策及对用户的个人信息的处理有任何疑问、意见、建议或投诉，以及行使用户的个人信息主体权利，请根据本协议载明的联系方式（support@neurodance.cn)与我们进行联系，我们会在验证用户的用户身份后的30个工作日内予以回复。解释权本协议最终解释权为枕月APP服务提供方。本政策版本更新日期为2025年7月10日，将于2025年7月10日正式生效。
     </view>
-  </view>
+  </scroll-view>
 </template>
 
 <script lang="ts" setup>
@@ -216,6 +216,7 @@
   display: flex;
   flex-direction: column;
   column-gap: 16px;
+  height: calc(100vh - env(safe-area-inset-bottom));
   .row {
     padding: 2px 0;
   }
