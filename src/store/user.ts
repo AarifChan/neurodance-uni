@@ -10,6 +10,7 @@ import { ref } from 'vue'
 import { toast } from '@/utils/toast'
 import { IUserInfoVo } from '@/api/login.typings'
 import { useDeviceStore } from './device'
+import { extractBearerTokenRobust } from '@/utils/index'
 
 // 初始化状态
 const userInfoState: IUserInfoVo = {
@@ -27,8 +28,9 @@ export const useUserStore = defineStore(
     const accessToken = ref<string | undefined>(uni.getStorageSync('token'))
 
     const setToken = (token: string) => {
-      accessToken.value = token
-      uni.setStorageSync('token', token)
+      let _token = extractBearerTokenRobust(token)
+      accessToken.value = _token
+      uni.setStorageSync('token', _token)
     }
 
     // 设置用户信息

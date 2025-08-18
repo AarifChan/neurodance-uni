@@ -61,6 +61,7 @@ defineProps({
     .subTitle {
       margin-top: 4rpx;
       font-size: 20rpx;
+      color: #86909c;
     }
   }
   .right {

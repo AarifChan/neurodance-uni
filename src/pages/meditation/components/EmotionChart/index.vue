@@ -1,13 +1,10 @@
 <template>
   <view class="emotion-chart">
-    <view v-if="!hasData" class="no-data">
-      <text class="no-data-text">No Data</text>
-    </view>
-    <div v-else ref="chartRef" class="chart"></div>
+    <div ref="chartRef" class="chart"></div>
 
     <view class="chart-labels">
       <text>{{ startTime }}</text>
-      <!-- <text class="label-center">情绪变化</text> -->
+
       <text>{{ endTime }}</text>
     </view>
     <view class="chart-labels-sub">
@@ -35,6 +32,10 @@ const props = defineProps({
     type: Array as PropType<number[]>,
     default: () => [],
   },
+  duration: {
+    type: Number,
+    default: 0,
+  },
   // 折线颜色
   lineColor: {
     type: String,
@@ -46,15 +47,9 @@ let chart: echarts.ECharts | null = null
 
 // 生成时间轴标签
 const generateTimeAxis = () => {
-  const count = props.dataList.length
-  const axis = new Array(count).fill('')
-  axis[0] = props.startTime
-  axis[count - 1] = props.endTime
-  return axis
+  return calculateTimeLabels(props.duration * 60, 5)
 }
-
 const hasData = computed(() => props.dataList.length > 0)
-
 // 初始化图表
 const initChart = () => {
   if (!chartRef.value || !hasData.value) return
@@ -75,22 +70,49 @@ const updateChart = () => {
   const option = {
     grid: {
       top: 10,
-      bottom: 10,
-      left: 16,
-      right: 16,
+      bottom: 32,
+      left: 32,
+      right: 32,
       containLabel: false,
     },
+
     xAxis: {
       type: 'category',
       data: generateTimeAxis(),
+
       boundaryGap: false,
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { show: false },
+      axisLabel: { show: true, interval: 0 },
     },
     yAxis: {
       type: 'value',
-      show: false,
+      min: 0,
+      max: 100,
+      interval: 100 / 3, // 三等分 (100, 200, 300)
+      splitLine: {
+        show: true,
+        lineStyle: {
+          type: 'dashed',
+        },
+      },
+
+      axisLabel: {
+        formatter: function (value) {
+          // 隐藏0值的标签
+          return ''
+        },
+      },
+      axisPointer: {
+        label: {
+          formatter: function (params) {
+            const value = params.value
+            if (value < 30) return '入定'
+            if (value < 70) return '自然'
+            return '活跃'
+          },
+        },
+      },
     },
     series: [
       {
@@ -101,12 +123,15 @@ const updateChart = () => {
         showSymbol: false,
         lineStyle: {
           color: props.lineColor,
-          width: 2,
+          width: 1,
         },
+
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: `${props.lineColor}80` },
-            { offset: 1, color: `${props.lineColor}00` },
+            { offset: 0, color: '#DFB2FF' },
+            { offset: 0.37, color: '#D198FA' },
+            { offset: 0.71, color: '#8270F3' },
+            { offset: 1, color: '#0038BA' },
           ]),
         },
       },
@@ -150,6 +175,30 @@ watch(
   },
   { deep: true, immediate: true },
 )
+
+// 计算时间间隔并生成标签数组
+const calculateTimeLabels = (totalSeconds: number, count: number): string[] => {
+  const interval = totalSeconds / (count - 1)
+  const labels: string[] = new Array(totalSeconds / 2).fill('') // 先全填空字符串
+
+  for (let i = 0; i < count; i++) {
+    console.log('i:', i)
+    let index = 0
+    if (i > 0) {
+      index = Math.round(Number(i * interval) / 2) - 1
+    }
+    labels[index] = formatMinute(Math.floor(i * interval))
+  }
+  console.log('label:', labels, interval, totalSeconds)
+  return labels
+}
+
+// 格式化分钟数为 MM:SS 格式
+const formatMinute = (minute: number): string => {
+  const m = Math.floor(minute / 60)
+  const s = minute % 60
+  return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
+}
 </script>
 
 <style scoped lang="scss">
@@ -167,7 +216,7 @@ watch(
     display: flex;
     justify-content: space-between;
 
-    padding: 0 20rpx;
+    padding: 0 32rpx;
     color: #999;
     font-size: 24rpx;
 

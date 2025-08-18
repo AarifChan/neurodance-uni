@@ -22,7 +22,7 @@
           <view class="info">
             <text class="title">枕月 APP</text>
             <view class="subTitle">愿您睡个好觉</view>
-            <view class="download" @tap.stop="toDownload">下载</view>
+            <view class="download" @tap.stop="didClickAndroid">下载</view>
           </view>
         </view>
       </view>

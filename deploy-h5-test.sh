@@ -8,6 +8,6 @@ rm -rvf dist/dist/h5
 pnpm install
 pnpm run build:h5
 tar -czvf ./dist.tar.gz --no-xattrs dist/build/h5/
-scp ./dist.tar.gz swd:/home/dev/h5/
-ssh swd "/home/dev/h5/run-web.sh"
+scp ./dist.tar.gz sw:/home/dev/h5/
+ssh sw "/home/dev/h5/run-web.sh"
 rm -rf ./dist.tar.gz

@@ -2,10 +2,10 @@
   "globalStyle": {
     "navigationStyle": "default",
     "navigationBarTitleText": "",
-    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarBackgroundColor": "#232323",
     "navigationBarTextStyle": "black",
     "disableScroll": true,
-    "backgroundColor": "#ffffff"
+    "backgroundColor": "#010101"
   },
   "easycom": {
     "autoscan": true,
@@ -50,8 +50,11 @@
       "type": "home",
       "layout": "default",
       "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "枕月睡眠仪",
+        "disableScroll": true,
+        "navigationBarBackgroundColor": "#232323",
+        "navigationBarTextStyle": "white",
+        "backgroundColor": "#010101"
       }
     },
     {

@@ -13,4 +13,8 @@ export interface MeditationReport {
   meditationDayDurationTotalMin: number
   meditationScore: number
   meditationData: number[]
+
+  deepEnergeticSeconds: number
+  spontaneousSeconds: number
+  concentrationSeconds: number
 }

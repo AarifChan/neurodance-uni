@@ -22,7 +22,7 @@
           <view class="info">
             <text class="title">枕月 APP</text>
             <view class="subTitle">愿您睡个好觉</view>
-            <view class="download" @tap.stop="toDownload">下载</view>
+            <view class="download" @tap.stop="didClickAndroid">下载</view>
           </view>
         </view>
       </view>
@@ -65,25 +65,20 @@
 
 <script lang="ts" setup>
 //
-const systemInfo = uni.getSystemInfoSync()
-const platform = systemInfo.platform // 'android' | 'ios' | 'devtools' | 'windows' | 'mac'
 
 const toDownload = () => {
-  if (platform === 'android') {
-    window.location.href = 'https://www.pgyer.com/uufXhxi6'
-    // 安卓
-  } else if (platform === 'ios') {
-    // iOS
-    window.location.href = 'https://testflight.apple.com/join/mdkP9Gve'
-  } else {
-    // PC 或开发者工具
-    window.location.href = 'https://wwww.neurodance.cn'
-  }
+  scrollView.value = 'download'
+  // uni.pageScrollTo({ selector: '#download', duration: 300 })
+  // window.location.href = 'https://testflight.apple.com/join/mdkP9Gve'
 }
-const didClickIOS = () => {}
+const didClickIOS = () => {
+  window.location.href = 'https://testflight.apple.com/join/mdkP9Gve'
+}
 
 const scrollView = ref('')
-const didClickAndroid = () => {}
+const didClickAndroid = () => {
+  window.location.href = 'https://www.pgyer.com/uufXhxi6'
+}
 const videoInfoList = ref([
   {
     time: '00:05',

@@ -199,3 +199,13 @@ export const getEnvBaseUploadUrl = () => {
 
   return baseUploadUrl
 }
+export function extractBearerTokenRobust(authHeader: string): string | null {
+  if (!authHeader) return null
+
+  // 去除字符串两端空格，然后按空格分割
+  const parts = authHeader.trim().split(/\s+/)
+  if (parts.length >= 2 && parts[0].toLowerCase() === 'bearer') {
+    return parts.slice(1).join(' ').trim()
+  }
+  return authHeader
+}

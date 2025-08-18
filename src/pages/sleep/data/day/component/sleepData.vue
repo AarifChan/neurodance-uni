@@ -9,7 +9,7 @@
         <text class="minute_view">{{ item.minute }}</text>
         <text style="margin-bottom: 10rpx; margin-left: 4rpx; margin-right: 4rpx">分钟</text>
 
-        <view class="state_view">
+        <!-- <view class="state_view">
           <text>{{ item.state }}</text>
           <image
             v-if="item.isExtend == 1"
@@ -26,7 +26,7 @@
             src="/static/images/sleep/ico_shujuxiajiang.png"
             style="width: 19.08rpx; height: 27.13rpx; margin-left: 2rpx"
           ></image>
-        </view>
+        </view> -->
       </view>
 
       <!-- 状态标签 -->
@@ -40,12 +40,12 @@
       </view>
 
       <!-- 睡眠脑电波 -->
-      <view class="eeg_view">
+      <!-- <view class="eeg_view">
         <view class="button_view" @click="eegView()">
           <text>睡眠脑电波</text>
           <image src="/static/images/sleep/btn_ico_hengpingzhankai_nor.png"></image>
         </view>
-      </view>
+      </view> -->
 
       <!-- 睡眠分析图 -->
       <view class="sleep_context_view">

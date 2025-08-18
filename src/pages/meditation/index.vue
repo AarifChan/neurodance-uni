@@ -27,6 +27,7 @@
         <view class="top-chart">
           <EmotionsChart
             :data-list="meditationReport?.meditationData ?? []"
+            :duration="meditationReport?.durationMin ?? 0"
             :start-time="
               meditationReport ? formatTimestamp(meditationReport?.meditationStart, 'HH:mm') : '- -'
             "
@@ -34,6 +35,53 @@
               meditationReport ? formatTimestamp(meditationReport?.meditationEnd, 'HH:mm') : '- -'
             "
           />
+        </view>
+        <view class="top-data">
+          <view class="item">
+            <view class="title">活跃</view>
+            <view class="time">
+              <view class="minute" v-if="getMinute(meditationReport?.deepEnergeticSeconds ?? 0)">
+                {{ getMinute(meditationReport?.deepEnergeticSeconds ?? 0) }}
+              </view>
+              <view class="seconds" v-if="getMinute(meditationReport?.deepEnergeticSeconds ?? 0)">
+                分
+              </view>
+              <view class="minute">
+                {{ getSeconds(meditationReport?.deepEnergeticSeconds ?? 0) }}
+              </view>
+              <view class="seconds">秒</view>
+            </view>
+          </view>
+          <view class="item">
+            <view class="title">自然</view>
+            <view class="time">
+              <view class="minute" v-if="getMinute(meditationReport?.spontaneousSeconds ?? 0)">
+                {{ getMinute(meditationReport?.spontaneousSeconds ?? 0) }}
+              </view>
+              <view class="seconds" v-if="getMinute(meditationReport?.spontaneousSeconds ?? 0)">
+                分
+              </view>
+              <view class="minute">
+                {{ getSeconds(meditationReport?.spontaneousSeconds ?? 0) }}
+              </view>
+              <view class="seconds">秒</view>
+            </view>
+          </view>
+          <view class="item">
+            <view class="title">入定</view>
+            <view class="time">
+              <view class="minute" v-if="getMinute(meditationReport?.concentrationSeconds ?? 0)">
+                {{ getMinute(meditationReport?.concentrationSeconds ?? 0) }}
+              </view>
+              <view class="seconds" v-if="getMinute(meditationReport?.concentrationSeconds ?? 0)">
+                分
+              </view>
+              <view class="minute">
+                {{ getSeconds(meditationReport?.concentrationSeconds ?? 0) }}
+              </view>
+              <view class="seconds">秒</view>
+            </view>
+          </view>
         </view>
       </view>
 
@@ -47,14 +95,14 @@
         <item
           title="累记冥想"
           sub-title="今日总时长"
-          unit="天"
+          unit="分钟"
           :value="meditationReport?.meditationDayDurationTotalMin ?? 0"
         />
         <item
           title="放松指数"
           sub-title="心情愉悦程度"
           unit="/100"
-          :valie="meditationReport?.meditationScore ?? 0"
+          :value="meditationReport?.meditationScore ?? 0"
         />
       </view>
     </view>
@@ -115,6 +163,20 @@ const getTabData = async () => {
     return
   }
 }
+function formatMinuteSecond(totalSeconds: number): string {
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  return `${minutes}分${seconds}秒`
+}
+
+function getMinute(totalSeconds: number): number {
+  const minutes = Math.floor(totalSeconds / 60)
+  return minutes
+}
+function getSeconds(totalSeconds: number): number {
+  const seconds = totalSeconds % 60
+  return seconds
+}
 
 const dateDidChange = (day: number) => {
   getDayData(day)
@@ -160,6 +222,43 @@ const dateDidChange = (day: number) => {
 
     gap: 30rpx;
     box-sizing: border-box;
+  }
+}
+.top-data {
+  margin-top: 24rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  .item {
+    width: calc(100% - 1rpx);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .title {
+      color: #4e5969;
+      font-size: 24rpx;
+    }
+    .time {
+      color: #d198fa;
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      .minute {
+        font-size: 28rpx;
+      }
+      .seconds {
+        font-size: 22rpx;
+      }
+    }
+  }
+  .item:first-child {
+    border-right: 1rpx solid #c9cdd4;
+  }
+  .item:last-child {
+    border-left: 1rpx solid #c9cdd4;
   }
 }
 </style>
