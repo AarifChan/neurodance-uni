@@ -235,8 +235,6 @@ const getSleepList = () => {}
 }
 
 .sleep_view {
-  // width: 627.86rpx;
-  // height: 269.75rpx;
   width: 100%;
   height: 250px;
   padding: 32rpx;

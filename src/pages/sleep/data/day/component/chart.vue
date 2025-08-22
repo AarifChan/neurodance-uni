@@ -66,7 +66,7 @@ function convertToSleepStateDurations(
 // props
 const props = defineProps<{ stages: number[]; interval?: number }>()
 
-const canvasWidth = 600
+const canvasWidth = 375
 const canvasHeight = 200
 // 绘制圆角矩形函数
 function drawRoundedRect(ctx: any, x: number, y: number, w: number, h: number, r: number) {
