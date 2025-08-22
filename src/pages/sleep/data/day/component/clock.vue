@@ -42,6 +42,7 @@ watch(
       let duration = (newVal.wakeupTimeEnd - newVal.wakeupTimeStart) / 1000 / 60
       alarmTime.value = formatTimestamp(newVal.wakeupTimeEnd, 'HH:mm')
       shallowTime.value = `${formatTimestamp(newVal.wakeupTimeStart, 'HH:mm')}-${formatTimestamp(newVal.wakeupTimeEnd, 'HH:mm')}（${duration}分钟）`
+      wakeUpTime.value = formatTimestamp(newVal.wakeupTimeReal, 'HH:mm')
     } else {
       alarmTime.value = '00:00'
       shallowTime.value = '00:00-00:00（0分钟）'
@@ -59,6 +60,8 @@ const wakeUpTime = ref('00:00')
   position: relative;
   margin: 0 32rpx;
   width: calc(100% - 64rpx);
+
+  aspect-ratio: 361 / 87;
   box-sizing: border-box;
   border-radius: 20rpx;
   overflow: hidden;
@@ -110,12 +113,14 @@ const wakeUpTime = ref('00:00')
 }
 .text-label {
   color: #4e5969;
+  font-size: 20rpx;
 }
 .text-value {
   color: #86909c;
+  font-size: 20rpx;
 }
 .wakeUp-label {
-  border-radius: 2px;
+  border-radius: 4rpx;
   background: linear-gradient(270deg, #6597ec 0%, #88b4fe 100%);
   color: white;
   padding: 4rpx 8rpx;

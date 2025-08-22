@@ -28,31 +28,14 @@
           ></image>
         </view> -->
       </view>
-
-      <!-- 状态标签 -->
-      <view class="report_view">
-        <view class="swiper_item_view">
-          <view v-for="(item2, index2) in reportList" :key="index2">
-            <text v-if="item2.id != item.id" @click="switchData(item2.id)">{{ item2.name }}</text>
-            <text v-if="item2.id == item.id" class="sleep_text_view">{{ item2.name }}</text>
-          </view>
-        </view>
+      <dataTab :list="tabList" :current="current" @click-item="handleItemChange" />
+      <view class="sleep_view">
+        <ChartView :stages="report?.stagingData ?? []" />
       </view>
 
-      <!-- 睡眠脑电波 -->
-      <!-- <view class="eeg_view">
-        <view class="button_view" @click="eegView()">
-          <text>睡眠脑电波</text>
-          <image src="/static/images/sleep/btn_ico_hengpingzhankai_nor.png"></image>
-        </view>
+      <!-- <view class="sleep_context_view">
+    
       </view> -->
-
-      <!-- 睡眠分析图 -->
-      <view class="sleep_context_view">
-        <view class="sleep_view" id="main"></view>
-      </view>
-
-      <!-- 前后时间 -->
       <view class="se_time_view">
         <view class="specific_time_view">
           <text>{{ item.startTime }}</text>
@@ -64,6 +47,19 @@
           <text>{{ item.endDate }}</text>
         </view>
       </view>
+      <!-- 状态标签 -->
+
+      <!-- 睡眠脑电波 -->
+      <!-- <view class="eeg_view">
+        <view class="button_view" @click="eegView()">
+          <text>睡眠脑电波</text>
+          <image src="/static/images/sleep/btn_ico_hengpingzhankai_nor.png"></image>
+        </view>
+      </view> -->
+
+      <!-- 睡眠分析图 -->
+
+      <!-- 前后时间 -->
     </view>
 
     <view class="type_tip_view">
@@ -94,15 +90,28 @@
 import { v4 as uuidv4 } from 'uuid'
 import * as echarts from 'echarts'
 import { SleepData, SleepId } from '@/api/sleep/index'
+import dataTab from './tab.vue'
 import { PropType } from 'vue'
 import { formatTimestamp } from '@/utils/date'
+import ChartView from './chart.vue'
 const props = defineProps({
   report: {
     default: null,
     type: Object as PropType<SleepData | null>,
   },
+  tabList: {
+    default: [] as SleepId[],
+    type: Array as PropType<SleepId[]>,
+  },
+  current: {
+    default: 0,
+    type: Number,
+  },
 })
-
+const emits = defineEmits(['reportIdChange'])
+const handleItemChange = (id: number) => {
+  emits('reportIdChange', id)
+}
 watch(
   () => props.report,
   (newVal) => {
@@ -124,7 +133,6 @@ watch(
         startDate: startDate, // 开始日期
         endDate: endDate, // 结束日期
       }
-      setECharts()
     } else {
       item.value = {
         hour: 0,
@@ -167,9 +175,7 @@ const getStateImage = (val: number) => {
       return '/static/images/sleep/ico_shujuxiajiang.png'
   }
 }
-const setECharts = () => {
-  myChart.value = echarts.init(document.getElementById('main'))
-}
+
 // 切换数据
 const switchData = (val) => {}
 const getSleepList = () => {}
@@ -181,10 +187,12 @@ const getSleepList = () => {}
   width: 100%;
 }
 .content_view {
+  padding-top: 16rpx;
   width: 100%;
-  // height: auto;
-  height: 350px;
-  background: #fff;
+
+  background: white;
+  display: flex;
+  flex-direction: column;
 }
 
 // 睡眠时长
@@ -226,23 +234,16 @@ const getSleepList = () => {}
   }
 }
 
-// 睡眠波
-.sleep_context_view {
+.sleep_view {
+  // width: 627.86rpx;
+  // height: 269.75rpx;
   width: 100%;
-  height: auto;
-
+  height: 250px;
+  padding: 32rpx;
+  box-sizing: border-box;
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-top: 68rpx;
-
-  .sleep_view {
-    width: 627.86rpx;
-    height: 269.75rpx;
-  }
+  flex-direction: column;
 }
-
 // 状态图标
 .state_view {
   position: absolute;
@@ -361,17 +362,16 @@ const getSleepList = () => {}
 // 前后时间
 .se_time_view {
   width: 100%;
-  height: auto;
 
-  margin-top: 20rpx;
-  padding-bottom: 57rpx;
+  // margin-top: 20rpx;
+  padding-bottom: 32rpx;
 
   .specific_time_view {
-    width: auto;
-    height: auto;
-
-    padding-left: 70rpx;
-    padding-right: 70rpx;
+    width: 100%;
+    // height: a;
+    box-sizing: border-box;
+    padding-left: 32rpx;
+    padding-right: 32rpx;
 
     display: flex;
     align-items: center;
@@ -392,11 +392,12 @@ const getSleepList = () => {}
   .specific_data_view {
     margin-top: 6rpx;
 
-    width: auto;
+    width: 100%;
     height: auto;
 
-    padding-left: 70rpx;
-    padding-right: 70rpx;
+    box-sizing: border-box;
+    padding-left: 32rpx;
+    padding-right: 32rpx;
 
     display: flex;
     align-items: center;
@@ -417,8 +418,9 @@ const getSleepList = () => {}
 
 // 睡眠图表提示
 .type_tip_view {
+  margin-top: 32rpx;
   width: 100%;
-  height: 90rpx;
+  // height: 60rpx;
 
   display: flex;
   align-items: center;

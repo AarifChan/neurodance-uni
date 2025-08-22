@@ -23,8 +23,8 @@
         </view>
 
         <view class="sleep_time_view">
-          <text class="sleep_time_hour_view">{{ hour }}</text>
-          <text class="sleep_time_tip_view">时</text>
+          <text v-if="hour > 0" class="sleep_time_hour_view">{{ hour }}</text>
+          <text v-if="hour > 0" class="sleep_time_tip_view">时</text>
           <text class="sleep_time_hour_view">{{ minute }}</text>
           <text class="sleep_time_tip_view">分</text>
         </view>
@@ -79,9 +79,17 @@ const props = defineProps({
 })
 
 const formatAnalysisData = (percentage: number, min: number) => {
+  const hour = Math.floor(min / 60)
+  const minute = Number(min % 60)
+  let timeStr = ''
+  if (hour > 0) {
+    timeStr += `${hour}小时`
+  }
+  timeStr += `${minute}分钟`
+
   return {
-    valueStr: `${percentage}%偏低`,
-    time: `${Math.floor(min / 60)}小时${min % 60}分钟`,
+    valueStr: `${percentage}%`,
+    time: timeStr,
   }
 }
 watch(
@@ -131,6 +139,7 @@ watch(
       minute.value = 0
       scoreStr.value = '未知'
       starList.value = [0, 0, 0, 0, 0]
+      dataList.value = []
     }
     setECharts()
   },
@@ -204,11 +213,11 @@ const setECharts = () => {
       },
     },
     polar: {},
-    color: ['#0723C3', '#7967F3 ', '#CF94F8', '#FFAE23 '],
+    color: ['#0723C3', '#7967F3 ', '#CF94F8', '#FFAE23'],
     series: [
       {
         type: 'bar',
-        data: [0, 0, 0, 18],
+        data: [0, 0, 0, props.report?.stagingAnalyze?.deepSleepPercentage ?? 0],
         coordinateSystem: 'polar',
         name: '深睡',
         roundCap: true,
@@ -216,7 +225,7 @@ const setECharts = () => {
       },
       {
         type: 'bar',
-        data: [0, 0, 0, 30], // 前面的0，累计还是0，这样径向轴上的对应的分区总数就是0，不会显示圆环
+        data: [0, 0, 0, props.report?.stagingAnalyze?.lightSleepPercentage ?? 0], // 前面的0，累计还是0，这样径向轴上的对应的分区总数就是0，不会显示圆环
         coordinateSystem: 'polar',
         name: '浅睡',
         stack: 'a',
@@ -224,7 +233,7 @@ const setECharts = () => {
       },
       {
         type: 'bar',
-        data: [0, 0, 0, 50],
+        data: [0, 0, 0, props.report?.stagingAnalyze?.remSleepPercentage ?? 0],
         coordinateSystem: 'polar',
         name: '快速动眼',
         stack: 'a',
@@ -232,7 +241,7 @@ const setECharts = () => {
       },
       {
         type: 'bar',
-        data: [0, 0, 0, 2],
+        data: [0, 0, 0, props.report?.stagingAnalyze?.wakePercentage ?? 0],
         coordinateSystem: 'polar',
         name: '觉醒',
         stack: 'a',
@@ -246,18 +255,14 @@ const setECharts = () => {
 onMounted(() => {
   setECharts()
 })
-const moreData = () => {
-  if (window.android != null && window.android.goSleepData != null) {
-    window.android.goSleepData('day')
-  }
-}
 </script>
 
 <style lang="scss" scoped>
 .content_view {
   width: 100%;
-  height: auto;
-
+  box-sizing: border-box;
+  // height: auto;
+  padding: 0 32rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -266,12 +271,11 @@ const moreData = () => {
 }
 
 .evaluate_bg_view {
-  width: 689rpx;
+  width: 100%;
   padding-bottom: 32rpx;
   background: #ffffff;
-  border-radius: 27rpx 27rpx 27rpx 27rpx;
+  border-radius: 24rpx;
 
-  margin-top: 38rpx;
   position: relative;
 
   display: flex;

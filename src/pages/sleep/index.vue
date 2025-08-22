@@ -20,7 +20,14 @@
 
     <!-- 内容 -->
     <scroll-view class="page-content" scroll-y show-scrollbar>
-      <day :report="sleepReport" v-if="selected == 0" :selected="selected" />
+      <day
+        :report="sleepReport"
+        v-if="selected == 0"
+        :tab-list="reportList"
+        :selected="selected"
+        :current="reportId"
+        @report-id-change="handleReportId"
+      />
       <week v-else-if="selected == 1" :selected="selected" />
       <moon v-else-if="selected == 2" :selected="selected" />
       <year v-else-if="selected == 3" :selected="selected" />
@@ -34,9 +41,11 @@ import week from './data/week/week.vue'
 import moon from './data/moon/moon.vue'
 import year from './data/year/year.vue'
 import DateTab from '@/components/date-tab/date-tab.vue'
-import { getSleepSummary, getSleepDetail, type SleepData } from '@/api/sleep/index'
+import { getSleepSummary, getSleepDetail, type SleepData, type SleepId } from '@/api/sleep/index'
 const currentDate = ref<number>(0)
 const sleepReport = ref<SleepData | null>(null)
+const reportList = ref<SleepId[]>([])
+const reportId = ref(0)
 import { getLastPage } from '@/utils/index'
 onMounted(async () => {
   const page = getLastPage() as any
@@ -52,17 +61,34 @@ const getDayData = async (day: number) => {
   const res = await getSleepSummary(day)
 
   if (res.state === 200) {
+    reportList.value = res.data ?? []
     let data = res.data.map((item) => item.sleepId).reverse()
     if (data.length > 0) {
-      const res = await getSleepDetail(data[0])
-      console.log('getSleepReport:', res.data)
-      if (res.state === 200) {
-        sleepReport.value = res.data
-        return
-      }
+      reportId.value = reportList.value.map((n) => n.sleepId)[0]
+      await getReportDetail()
+      return
     }
   }
   sleepReport.value = null
+  reportId.value = 0
+  reportList.value = []
+}
+const handleReportId = (id: number) => {
+  reportId.value = id
+  getReportDetail()
+}
+
+const getReportDetail = async () => {
+  if (reportId.value !== 0) {
+    const res = await getSleepDetail(reportId.value)
+    console.log('getSleepReport:', res.data)
+    if (res.state === 200) {
+      sleepReport.value = res.data
+      return
+    } else {
+      sleepReport.value = null
+    }
+  }
 }
 
 const selected = ref(0)

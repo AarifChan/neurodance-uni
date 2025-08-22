@@ -1,7 +1,7 @@
 export interface SleepId {
   sleepId: number
+  sleepType: number //0 小睡 1 夜间睡眠
 }
-
 export interface SleepStagingAnalyze {
   deepSleepPercentage: number
   deepSleepMin: number
@@ -12,6 +12,7 @@ export interface SleepStagingAnalyze {
   wakePercentage: number
   wakeCount: number
   wakeMin: number
+  sleepLatencyMin: number
 }
 
 export interface SleepPositionAnalyze {
@@ -45,7 +46,7 @@ export interface SleepData {
   avgRelaxIndex: number
   bodyPositionInfo: string
   sleepScore: number
-  stagingData: string[]
+  stagingData: number[]
   stagingAnalyze: SleepStagingAnalyze
   positionAnalyze: SleepPositionAnalyze
   breathingAnalyze: SleepBreathingAnalyze

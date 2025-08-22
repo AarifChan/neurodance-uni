@@ -91,9 +91,16 @@ const props = defineProps({
   },
 })
 const formatAnalysisPositionData = (percentage: number, min: number) => {
+  const hour = Math.floor(min / 60)
+  const minute = Number(min % 60)
+  let timeStr = ''
+  if (hour > 0) {
+    timeStr += `${hour}小时`
+  }
+  timeStr += `${minute}分钟`
   return {
     scale: percentage,
-    timeStr: `${Math.floor(min / 60)}小时${min % 60}分钟`,
+    timeStr: timeStr,
   }
 }
 watch(
@@ -102,12 +109,13 @@ watch(
     if (newVal) {
       number.value = newVal.breathingAnalyze?.snoreCount || 0
       flips.value = newVal.positionAnalyze.sleepTurns
+      longTime.value = newVal.stagingAnalyze?.sleepLatencyMin || 0
       upTime.value = newVal.stagingAnalyze?.wakeCount || 0
       flipsList.value = [
         {
           ...formatAnalysisPositionData(
-            newVal.positionAnalyze?.pronePercentage || 0,
-            newVal.positionAnalyze?.proneMin || 0,
+            newVal.positionAnalyze?.supinePercentage || 0,
+            newVal.positionAnalyze?.supineMin || 0,
           ),
           type: 0,
           long: true,
@@ -115,8 +123,8 @@ watch(
         },
         {
           ...formatAnalysisPositionData(
-            newVal.positionAnalyze?.rightPercentage || 0,
-            newVal.positionAnalyze?.rightMin || 0,
+            newVal.positionAnalyze?.pronePercentage || 0,
+            newVal.positionAnalyze?.proneMin || 0,
           ),
           type: 1,
           long: false,
@@ -124,8 +132,8 @@ watch(
         },
         {
           ...formatAnalysisPositionData(
-            newVal.positionAnalyze?.leftPercentage || 0,
-            newVal.positionAnalyze?.leftMin || 0,
+            newVal.positionAnalyze?.rightPercentage || 0,
+            newVal.positionAnalyze?.rightMin || 0,
           ),
           type: 2,
           long: false,
@@ -133,8 +141,8 @@ watch(
         },
         {
           ...formatAnalysisPositionData(
-            newVal.positionAnalyze?.uprightPercentage || 0,
-            newVal.positionAnalyze?.uprightMin || 0,
+            newVal.positionAnalyze?.leftPercentage || 0,
+            newVal.positionAnalyze?.leftMin || 0,
           ),
           type: 3,
           long: false,
@@ -142,8 +150,8 @@ watch(
         },
         {
           ...formatAnalysisPositionData(
-            newVal.positionAnalyze?.supinePercentage || 0,
-            newVal.positionAnalyze?.supineMin || 0,
+            newVal.positionAnalyze?.uprightPercentage || 0,
+            newVal.positionAnalyze?.uprightMin || 0,
           ),
           type: 4,
           long: false,
@@ -168,29 +176,29 @@ const flips = ref(0)
 
 const flipsList = ref([
   {
-    timeStr: '1小时50分钟',
-    scale: 35,
+    timeStr: '0分钟',
+    scale: 0,
     type: 0,
     long: true,
     url: '/static/images/sleep/icon_yangwo_highlight_long.png',
   },
   {
-    timeStr: '1小时20分钟',
-    scale: 25,
+    timeStr: '0分钟',
+    scale: 0,
     type: 1,
     long: false,
     url: '/static/images/sleep/ico_fuwo_nor.png',
   },
   {
-    timeStr: '1小时20分钟',
-    scale: 21,
+    timeStr: '0分钟',
+    scale: 0,
     type: 2,
     long: false,
     url: '/static/images/sleep/ico_youcewo_nor.png',
   },
   {
-    timeStr: '1小时10分钟',
-    scale: 19,
+    timeStr: '0分钟',
+    scale: 0,
     type: 3,
     long: false,
     url: '/static/images/sleep/ico_zuocewo_nor.png',
@@ -243,18 +251,15 @@ function getSleepImage(val: number, long: boolean) {
 <style lang="scss" scoped>
 .content_view {
   width: 100%;
-  height: auto;
-
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  margin-top: 38rpx;
+  justify-content: space-between;
+  padding: 0 32rpx;
+  box-sizing: border-box;
 }
 
 .study_left_view {
-  width: 334.92rpx;
-  height: auto;
+  width: 360rpx;
 
   margin-right: 9rpx;
 

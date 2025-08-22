@@ -175,6 +175,10 @@
       "type": "page"
     },
     {
+      "path": "pages/sleep/data/day/component/chart",
+      "type": "page"
+    },
+    {
       "path": "pages/sleep/data/day/component/clock",
       "type": "page"
     },
@@ -196,6 +200,10 @@
     },
     {
       "path": "pages/sleep/data/day/component/suggestionsLogs",
+      "type": "page"
+    },
+    {
+      "path": "pages/sleep/data/day/component/tab",
       "type": "page"
     },
     {
